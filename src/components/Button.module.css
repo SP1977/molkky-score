@@ -1,0 +1,30 @@
+.btn {
+	padding: 1rem 1.5rem;
+	font-family: "Parkinsans", sans-serif;
+	color: var(--secondary-color);
+	border: 1px black solid;
+	font-size: 15px;
+	background-color: var(--primary-color);
+	columns: var(--primary-color);
+	box-shadow: 4px 4px 0 #3d4731;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 300px;
+	width: 100%;
+}
+
+.btn:active,
+.btn:hover {
+	box-shadow: 2px 2px 0px #3d4731;
+	transform: scale(0.99);
+}
+
+.btn-small {
+	padding: 0.8rem 0.8rem;
+	background-color: white;
+	min-width: min-content;
+	width: min-content;
+	font-size: 1.1rem;
+}
