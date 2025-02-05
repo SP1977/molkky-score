@@ -9,7 +9,6 @@ You can test the current version [here](https://molkky-calculator.netlify.app/)
 
 -   localStorage
 -   replace alerts with warning messages displayed in the UI
--   inputs focus
 
 ## Mölkky rules
 
