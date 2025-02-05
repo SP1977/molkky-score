@@ -25,7 +25,7 @@ function Calculator() {
 
 	return (
 		<>
-			<h3 class="subtitle-white">Partie en cours</h3>
+			<h3 className="subtitle-white">Partie en cours</h3>
 			<table className="points-table">
 				{topPlayers.length === 1 && isFirstScoreEntered && (
 					<caption className="ranking">

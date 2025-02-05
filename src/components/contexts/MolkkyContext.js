@@ -152,7 +152,6 @@ function MolkkyProvider({ children }) {
 							if (updatedPenalty >= 3) {
 								setEliminatedPlayers((prev) => {
 									const updatedEliminated = [...prev, player];
-
 									return updatedEliminated;
 								});
 								return null; // Retirer le joueur des joueurs actifs
@@ -240,6 +239,8 @@ function MolkkyProvider({ children }) {
 				winner,
 				handleScoreUpdate,
 				handleUndo,
+				eliminatedPlayers,
+				setEliminatedPlayers,
 			}}
 		>
 			{children}

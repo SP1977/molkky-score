@@ -122,6 +122,10 @@ body {
 	padding: 1rem;
 }
 
+.players-ranking-ending li {
+	list-style-type: none;
+}
+
 .players {
 	font-weight: 300;
 }
