@@ -39,7 +39,7 @@ export default function App() {
 
 	return (
 		<div className="app">
-			<header class="header">
+			<header className="header">
 				<h1 className="title">Mölkky</h1>
 				<h2 className="subtitle">Calculateur de score</h2>
 			</header>
