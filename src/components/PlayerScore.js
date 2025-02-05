@@ -34,6 +34,7 @@ function PlayerScore({ player, onScoreUpdate, isCurrent }) {
 				{isCurrent ? (
 					<form className="points-form" onSubmit={handleScore}>
 						<input
+							autoFocus
 							type="text"
 							placeholder="points"
 							value={score}

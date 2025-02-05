@@ -24,6 +24,7 @@ function PlayersInscription({ onAddPlayer }) {
 			<h3 class="subtitle-white">Qui joue?</h3>
 			<form className="inscription-form" onSubmit={handleSubmit}>
 				<input
+					autoFocus
 					type="text"
 					placeholder="Nom du joueur"
 					value={name}
