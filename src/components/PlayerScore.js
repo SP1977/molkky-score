@@ -1,27 +1,13 @@
-import { useState } from "react";
+import { useMolkky } from "./contexts/MolkkyContext";
 
 function PlayerScore({ player, onScoreUpdate, isCurrent }) {
-	// const inputRef = useRef(null);
-
-	// Donner le focus à l'input lorsque le joueur est le "current player"
-	// useEffect(() => {
-	// 	if (isCurrent && inputRef.current) {
-	// 		inputRef.current.focus();
-	// 	}
-	// }, [isCurrent]);
-
-	const [score, setScore] = useState("");
+	const { score, setScore } = useMolkky();
 
 	function handleScore(e) {
 		e.preventDefault();
-		const parsedScore = parseInt(score, 10); // Conversion en nombre
-		if (isNaN(parsedScore)) return; // Ne rien faire si la conversion échoue
-		if (parsedScore > 12) {
-			alert("Le score maximum est de 12 !");
-			setScore("");
-			return; // Vérifier si le score est supérieur à 12 et empêcher l'envoi du score
-		}
-		onScoreUpdate(player.id, parsedScore); // Appeler la fonction passée par le parent
+		const parsedScore = parseInt(score, 10);
+		if (isNaN(parsedScore) || score === "") return;
+		onScoreUpdate(player.id, parsedScore);
 		setScore("");
 	}
 
@@ -35,7 +21,7 @@ function PlayerScore({ player, onScoreUpdate, isCurrent }) {
 					<form className="points-form" onSubmit={handleScore}>
 						<input
 							autoFocus
-							type="text"
+							type="number"
 							placeholder="points"
 							value={score}
 							onChange={(e) => setScore(e.target.value)}

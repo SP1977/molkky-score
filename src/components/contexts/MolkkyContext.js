@@ -47,6 +47,9 @@ function MolkkyProvider({ children }) {
 	const [history, setHistory] = useState([]);
 	const [winner, setWinner] = useState(null);
 	const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
+	const [message, setMessage] = useState("");
+
+	const [score, setScore] = useState("");
 
 	function shufflePlayers(array) {
 		return array.sort(() => Math.random() - 0.5);
@@ -118,6 +121,14 @@ function MolkkyProvider({ children }) {
 
 	// Mise à jour du score du joueur
 	function handleScoreUpdate(playerId, newScore) {
+		if (isNaN(newScore) || newScore < 0 || newScore > 12) {
+			setMessage("Le score doit être compris entre 0 et 12!");
+			setScore("");
+			return;
+		}
+
+		setMessage("");
+
 		setPlayers((prevPlayers) => {
 			const updatedPlayers = prevPlayers
 				.map((player) => {
@@ -241,6 +252,9 @@ function MolkkyProvider({ children }) {
 				handleUndo,
 				eliminatedPlayers,
 				setEliminatedPlayers,
+				message,
+				score,
+				setScore,
 			}}
 		>
 			{children}

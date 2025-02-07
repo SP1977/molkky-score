@@ -113,6 +113,19 @@ body {
 	margin-bottom: 1rem;
 }
 
+.warning-block {
+	border: 2px red solid;
+	box-shadow: 4px 4px 0 #3d4731;
+	background-color: #ffffff;
+	padding: 1rem;
+	margin-bottom: 1rem;
+	max-width: 318px;
+}
+
+.warning {
+	color: red;
+}
+
 .ranking {
 	font-weight: 900;
 	box-shadow: 4px 4px 0 #3d4731;

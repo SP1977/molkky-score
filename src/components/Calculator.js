@@ -1,6 +1,7 @@
 import { useMolkky } from "./contexts/MolkkyContext";
 import PlayerScore from "./PlayerScore";
 import style from "./Button.module.css";
+import Warning from "./Warning";
 
 function Calculator() {
 	const {
@@ -11,10 +12,8 @@ function Calculator() {
 		topPlayers,
 	} = useMolkky();
 
-	// Vérifier si un score a déjà été introduit en cherchant un score supérieur à 0
+	// Vérifier si un score a déjà été introduit
 	const isFirstScoreEntered = players.some((player) => player.score > 0);
-
-	// Recherche du meilleur score :
 
 	if (!players.length) return null;
 	// Créer une nouvelle liste des joueurs avec le joueur actuel en premier
@@ -26,6 +25,7 @@ function Calculator() {
 	return (
 		<>
 			<h3 className="subtitle-white">Partie en cours</h3>
+			<Warning />
 			<table className="points-table">
 				{topPlayers.length === 1 && isFirstScoreEntered && (
 					<caption className="ranking">
