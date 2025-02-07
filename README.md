@@ -8,7 +8,6 @@ You can test the current version [here](https://molkky-calculator.netlify.app/)
 ## Features to be added and improvements :
 
 -   localStorage
--   replace alerts with warning messages displayed in the UI
 
 ## Mölkky rules
 
