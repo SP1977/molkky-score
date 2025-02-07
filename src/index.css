@@ -103,7 +103,8 @@ body {
 	border: none;
 }
 
-.points-table {
+.points-table,
+.warning-block {
 	padding: 2rem;
 	border: 1px black solid;
 	box-shadow: 4px 4px 0 #3d4731;
@@ -114,12 +115,9 @@ body {
 }
 
 .warning-block {
-	border: 2px red solid;
-	box-shadow: 4px 4px 0 #3d4731;
-	background-color: #ffffff;
 	padding: 1rem;
-	margin-bottom: 1rem;
-	max-width: 318px;
+	border: 2px red solid;
+	max-width: 294px;
 }
 
 .warning {

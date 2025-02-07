@@ -154,8 +154,11 @@ function MolkkyProvider({ children }) {
 
 							// Afficher un avertissement au début du 3e tour
 							if (updatedPenalty === 2) {
-								alert(
-									`${player.name}, attention ! Si vous faites 0 points encore une fois, vous serez éliminé.`
+								// alert(
+								// 	`${player.name}, attention ! Si vous faites 0 points encore une fois, vous serez éliminé.`
+								// );
+								setMessage(
+									`${player.name} : si vous faites 0 points encore une fois, vous serez éliminé.`
 								);
 							}
 
@@ -163,6 +166,21 @@ function MolkkyProvider({ children }) {
 							if (updatedPenalty >= 3) {
 								setEliminatedPlayers((prev) => {
 									const updatedEliminated = [...prev, player];
+
+									// Vérifier s'il reste plus d'un joueur après l'élimination
+									const remainingPlayers = prevPlayers.filter(
+										(p) => p.id !== playerId
+									);
+									if (remainingPlayers.length === 1) {
+										// Un seul joueur restant = fin du jeu
+										handleEndGame(remainingPlayers[0]);
+									} else {
+										// Il reste d'autres joueurs -> afficher le message d'élimination
+										setMessage(
+											`${player.name} a été éliminé.`
+										);
+									}
+
 									return updatedEliminated;
 								});
 								return null; // Retirer le joueur des joueurs actifs
