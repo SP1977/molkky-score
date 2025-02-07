@@ -1,9 +1,20 @@
 import style from "./Button.module.css";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function PlayersInscription({ onAddPlayer }) {
 	const [name, setName] = useState("");
+	const inputRef = useRef(null);
+
+	useEffect(() => {
+		// Met un léger délai pour donner le temps au DOM de se rendre avant de définir le focus
+		const timer = setTimeout(() => {
+			if (inputRef.current) {
+				inputRef.current.focus();
+			}
+		}, 100); // Ajuste le délai si nécessaire
+		return () => clearTimeout(timer);
+	}, []);
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -34,7 +45,7 @@ function PlayersInscription({ onAddPlayer }) {
 					<img
 						src="./icons/plus1.svg"
 						alt="ajouter un joueur"
-						title="ajouter un jour"
+						title="ajouter un joueur"
 						className="btn-icon"
 					/>
 				</button>

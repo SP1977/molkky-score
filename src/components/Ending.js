@@ -20,10 +20,10 @@ function Ending({
 		<div className="ending">
 			<h3 className="subtitle-white winner">{winner.name} a gagné!</h3>
 			<h4 className="subtitle-white">Classement des autres joueurs :</h4>
-			<ul class="players-ranking-ending">
+			<ul className="players-ranking-ending">
 				{sortedPlayers.map((player) => (
 					<li key={player.id}>
-						{player.name} - {player.score} points
+						{player.name} : {player.score} points
 					</li>
 				))}
 				{eliminatedPlayers && eliminatedPlayers.length > 0 && (
