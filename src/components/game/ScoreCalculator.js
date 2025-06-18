@@ -1,79 +1,119 @@
 import { useMolkky } from "../contexts/MolkkyContext";
-import PlayerScore from "./PlayerScorePanel";
-import style from "./../ui/Button.module.css";
+import PlayerScorePanel from "./PlayerScorePanel";
 import Warning from "../ui/Warning";
+import Button from "../ui/Button";
+import styles from "../../styles/shared.module.css";
 
-function Calculator() {
+import {
+	isFault,
+	isWinner,
+	isEliminated,
+	getLeader,
+	isTie,
+} from "../../utils/scoreLogic";
+
+const ScoreCalculator = () => {
 	const {
 		players,
 		handleScoreUpdate,
-		handleUndo,
+		handleUndo: undoScore,
 		currentPlayerIndex,
-		topPlayers,
+		hasScoredThisTurn,
+		message,
 	} = useMolkky();
 
-	// Vérifier si un score a déjà été introduit
-	const isFirstScoreEntered = players.some((player) => player.score > 0);
+	const currentPlayer = players[currentPlayerIndex];
+	const leaders = getLeader(players);
+	const isEquality = isTie(players);
+	const gameOver = players.some((p) => isWinner(p.score));
 
-	if (!players.length) return null;
-	// Créer une nouvelle liste des joueurs avec le joueur actuel en premier
+	const handleScore = (playerId, score) => {
+		handleScoreUpdate(playerId, score);
+	};
+
+	const handleUndo = () => {
+		undoScore();
+	};
+
+	// Joueur courant en tête
 	const reorderedPlayers = [
-		players[currentPlayerIndex],
-		...players.filter((_, index) => index !== currentPlayerIndex),
+		currentPlayer,
+		...players.filter((_, i) => i !== currentPlayerIndex),
 	];
 
 	return (
 		<>
-			<h3 className="subtitle-white">Partie en cours</h3>
-			<Warning />
-			<table className="points-table">
-				{topPlayers.length === 1 && isFirstScoreEntered && (
-					<caption className="ranking">
-						En tête:
-						<span className="players">
-							{` ${topPlayers[0].name} avec
-						${topPlayers[0].score} points`}
-						</span>
-					</caption>
-				)}
-				{topPlayers.length > 1 && isFirstScoreEntered && (
-					<caption className="ranking">
-						Égalité:
-						<span className="players">
-							{` ${topPlayers
-								.map((player) => player.name)
-								.join(", ")}`}
-						</span>
-					</caption>
-				)}
+			<h3 className="subtitle-white">Tour de : {currentPlayer.name}</h3>
+			{message && (
+				<div className={styles.warningBlock}>
+					<p className={styles.warning}>{message}</p>
+				</div>
+			)}
+			{isFault(currentPlayer.lastScore) && (
+				<Warning message={`${currentPlayer.name} a fait une faute !`} />
+			)}
 
-				<thead>
-					<tr className="table-titles">
-						<th>Nom</th>
-						<th>Fautes</th>
-						<th>Total</th>
-						<th>Points</th>
-					</tr>
-				</thead>
+			{isEliminated(currentPlayer.faults) && (
+				<Warning message={`${currentPlayer.name} est éliminé.`} />
+			)}
 
-				<tbody>
-					{reorderedPlayers.map((player, index) => (
-						<PlayerScore
-							player={player}
-							key={player.id}
-							onScoreUpdate={handleScoreUpdate}
-							isCurrent={index === 0}
-						/>
-					))}
-				</tbody>
-			</table>
-			{isFirstScoreEntered && (
-				<button className={`${style.btn}`} onClick={handleUndo}>
-					Annuler dernier score
-				</button>
+			{!gameOver && (
+				<>
+					{leaders.length > 0 &&
+						leaders[0].score > 0 &&
+						!isEquality && (
+							<caption className={styles.ranking}>
+								En tête:{" "}
+								<span className={styles.players}>
+									{leaders[0].name}
+								</span>
+							</caption>
+						)}
+
+					{leaders.length > 0 &&
+						leaders[0].score > 0 &&
+						isEquality && (
+							<caption className={styles.ranking}>
+								Égalité entre :{" "}
+								<span className={styles.players}>
+									{leaders.map((p) => p.name).join(", ")}
+								</span>
+							</caption>
+						)}
+					<table className={styles.scoreTable}>
+						<thead>
+							<tr className={styles.tableTitles}>
+								<th>Nom</th>
+								<th>Fautes</th>
+								<th>Total</th>
+								<th>Points</th>
+							</tr>
+						</thead>
+						<tbody>
+							{reorderedPlayers.map((player) => (
+								<PlayerScorePanel
+									key={player.id}
+									player={player}
+									isCurrent={player.id === currentPlayer.id}
+									onScoreUpdate={handleScore}
+								/>
+							))}
+						</tbody>
+					</table>
+
+					{hasScoredThisTurn && (
+						<Button onClick={handleUndo} label="Annuler le score" />
+					)}
+				</>
+			)}
+
+			{gameOver && (
+				<div className="game-over">
+					<h3>Partie terminée ! Gagnant : {leaders[0].name}</h3>
+				</div>
 			)}
 		</>
 	);
-}
+};
 
-export default Calculator;
+export default ScoreCalculator;

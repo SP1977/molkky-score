@@ -50,6 +50,7 @@ function MolkkyProvider({ children }) {
 	const [message, setMessage] = useState("");
 
 	const [score, setScore] = useState("");
+	const [hasScoredThisTurn, setHasScoredThisTurn] = useState(false);
 
 	function shufflePlayers(array) {
 		return array.sort(() => Math.random() - 0.5);
@@ -183,6 +184,7 @@ function MolkkyProvider({ children }) {
 
 									return updatedEliminated;
 								});
+								setHasScoredThisTurn(false);
 								return null; // Retirer le joueur des joueurs actifs
 							}
 						} else {
@@ -233,6 +235,8 @@ function MolkkyProvider({ children }) {
 			if (activePlayers.length === 0) return 0; // Personne actif
 			return (prevIndex + 1) % activePlayers.length;
 		});
+
+		setHasScoredThisTurn(true);
 	}
 
 	function handleUndo() {
@@ -248,6 +252,7 @@ function MolkkyProvider({ children }) {
 				(prevIndex) => (prevIndex - 1 + players.length) % players.length
 			);
 		}
+		setHasScoredThisTurn(false);
 	}
 
 	return (
@@ -273,6 +278,7 @@ function MolkkyProvider({ children }) {
 				message,
 				score,
 				setScore,
+				hasScoredThisTurn,
 			}}
 		>
 			{children}

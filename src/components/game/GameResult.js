@@ -1,5 +1,4 @@
-import style from "./../ui/Button.module.css";
-import React from "react";
+import styles from "../../styles/shared.module.css";
 import { useMolkky } from "../contexts/MolkkyContext";
 
 function Ending({
@@ -18,9 +17,11 @@ function Ending({
 
 	return (
 		<div className="ending">
-			<h3 className="subtitle-white winner">{winner.name} a gagné!</h3>
+			<h3 className={`${styles.winner} subtitle-white`}>
+				{winner.name} a gagné!
+			</h3>
 			<h4 className="subtitle-white">Classement des autres joueurs :</h4>
-			<ul className="players-ranking-ending">
+			<ul className={styles.playersRankingEnding}>
 				{sortedPlayers.map((player) => (
 					<li key={player.id}>
 						{player.name} : {player.score} points
@@ -28,7 +29,7 @@ function Ending({
 				))}
 				{eliminatedPlayers && eliminatedPlayers.length > 0 && (
 					<>
-						<ul className="players-ranking-ending">
+						<ul className={styles.playersRankingEnding}>
 							{eliminatedPlayers.map((player) => (
 								<li key={player.id}>{player.name} : éliminé</li>
 							))}
@@ -36,17 +37,14 @@ function Ending({
 					</>
 				)}
 			</ul>
-			<div className="restart-buttons">
-				<button
-					className={`${style.btn}`}
-					onClick={onRestartSamePlayers}
-				>
+			<div className={styles.restartButtons}>
+				<button className={styles.btn} onClick={onRestartSamePlayers}>
 					Recommencer avec les mêmes joueurs
 				</button>
-				<button className={`${style.btn}`} onClick={onModifyPlayers}>
+				<button className={`${styles.btn}`} onClick={onModifyPlayers}>
 					Ajouter/Supprimer des joueurs
 				</button>
-				<button className={`${style.btn}`} onClick={onResetGame}>
+				<button className={`${styles.btn}`} onClick={onResetGame}>
 					Recommencer à zéro
 				</button>
 			</div>

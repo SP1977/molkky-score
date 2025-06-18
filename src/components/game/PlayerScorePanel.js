@@ -1,6 +1,7 @@
 import { useMolkky } from "../contexts/MolkkyContext";
+import styles from "../../styles/shared.module.css";
 
-function PlayerScore({ player, onScoreUpdate, isCurrent }) {
+function PlayerScorePanel({ player, onScoreUpdate, isCurrent }) {
 	const { score, setScore } = useMolkky();
 
 	function handleScore(e) {
@@ -12,28 +13,30 @@ function PlayerScore({ player, onScoreUpdate, isCurrent }) {
 	}
 
 	return (
-		<tr className="table-titles">
+		<tr className={styles.tableTitles}>
 			<td>{player.name}</td>
 			<td>{player.penalty}</td>
 			<td>{player.score}</td>
 			<td>
 				{isCurrent ? (
-					<form className="points-form" onSubmit={handleScore}>
-						<input
-							autoFocus
-							type="number"
-							placeholder="points"
-							value={score}
-							onChange={(e) => setScore(e.target.value)}
-						/>
-						<button type="submit">
-							<img
-								src="./icons/plus2.svg"
-								alt="ajouter les points"
-								title="ajouter les points"
-								className="btn-icon"
+					<form className={styles.pointsForm} onSubmit={handleScore}>
+						<div className={styles.pointsGroup}>
+							<input
+								autoFocus
+								type="number"
+								placeholder="points"
+								value={score}
+								onChange={(e) => setScore(e.target.value)}
 							/>
-						</button>
+							<button type="submit">
+								<img
+									src="./icons/plus2.svg"
+									alt="ajouter les points"
+									title="ajouter les points"
+									className="btn-icon"
+								/>
+							</button>
+						</div>
 					</form>
 				) : (
 					"-"
@@ -43,4 +46,4 @@ function PlayerScore({ player, onScoreUpdate, isCurrent }) {
 	);
 }
 
-export default PlayerScore;
+export default PlayerScorePanel;

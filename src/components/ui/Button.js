@@ -1,9 +1,17 @@
-import style from "./Button.module.css";
+import styles from "../../styles/shared.module.css";
 
-function Button({ children, onClick }) {
+function Button({ children, label, onClick, small = false, icon = false }) {
+	let btnClass = styles.btn;
+
+	if (icon) {
+		btnClass = styles.iconBtn;
+	} else if (small) {
+		btnClass = `${styles.btn} ${styles.btnSmall}`;
+	}
+
 	return (
-		<button className={`${style.btn}`} onClick={onClick}>
-			{children}
+		<button className={btnClass} onClick={onClick}>
+			{children || label}
 		</button>
 	);
 }

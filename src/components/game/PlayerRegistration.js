@@ -1,6 +1,6 @@
-import style from "./../ui/Button.module.css";
-
+import styles from "../../styles/shared.module.css";
 import { useState } from "react";
+import Button from "../ui/Button";
 
 function PlayersInscription({ onAddPlayer }) {
 	const [name, setName] = useState("");
@@ -22,7 +22,7 @@ function PlayersInscription({ onAddPlayer }) {
 	return (
 		<>
 			<h3 className="subtitle-white">Qui joue?</h3>
-			<form className="inscription-form" onSubmit={handleSubmit}>
+			<form className={styles.registrationForm} onSubmit={handleSubmit}>
 				<input
 					autoFocus
 					type="text"
@@ -30,14 +30,14 @@ function PlayersInscription({ onAddPlayer }) {
 					value={name}
 					onChange={(e) => setName(e.target.value)}
 				/>
-				<button className={`${style.btn} ${style["btn-small"]}`}>
+				<Button small>
 					<img
 						src="./icons/plus1.svg"
 						alt="ajouter un joueur"
 						title="ajouter un jour"
 						className="btn-icon"
 					/>
-				</button>
+				</Button>
 			</form>
 		</>
 	);

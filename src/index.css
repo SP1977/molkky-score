@@ -3,6 +3,17 @@
 	--secondary-color: #536143;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Pour Firefox */
+input[type="number"] {
+	-moz-appearance: textfield;
+}
+
 *,
 *::before,
 *::after {
@@ -17,6 +28,7 @@ body {
 	font-style: normal;
 	color: var(--primary-color);
 	background-color: var(--secondary-color);
+	font-size: 15px;
 }
 
 .app,
@@ -49,125 +61,4 @@ body {
 	color: white;
 	font-weight: 300;
 	margin-bottom: 0.8rem;
-}
-
-.inscription-form,
-.points-form {
-	display: flex;
-	width: 300px;
-	max-width: 300px;
-	justify-content: space-between;
-}
-
-.inscription-form input {
-	width: 100%;
-	margin-right: 15px;
-	padding: 0.5rem;
-	color: var(--secondary-color);
-	font-family: "Parkinsans", sans-serif;
-	font-size: 15px;
-	box-shadow: 4px 4px 0 #3d4731;
-}
-.points-form {
-	width: 100px;
-	max-width: 100px;
-}
-
-.points-form input {
-	background-color: var(--primary-color);
-	padding: 2px;
-	width: 60px;
-	margin-right: 10px;
-	font-size: 15px;
-}
-
-.players-block {
-	margin: 1rem 0;
-	width: 297px;
-}
-
-.playerlist {
-	list-style: none;
-	display: flex;
-	flex-direction: row-reverse;
-	align-items: center;
-	justify-content: start;
-	font-size: 15px;
-	color: white;
-}
-
-.playerlist button,
-.points-form button {
-	margin-right: 5px;
-	background-color: transparent;
-	border: none;
-}
-
-.points-table,
-.warning-block {
-	padding: 2rem;
-	border: 1px black solid;
-	box-shadow: 4px 4px 0 #3d4731;
-	background-color: #fff;
-	font-size: 15px;
-	color: var(--secondary-color);
-	margin-bottom: 1rem;
-}
-
-.warning-block {
-	padding: 1rem;
-	border: 2px red solid;
-	max-width: 300px;
-}
-
-.warning {
-	color: red;
-}
-
-.ranking {
-	font-weight: 900;
-	box-shadow: 4px 4px 0 #3d4731;
-	color: var(--secondary-color);
-	margin-bottom: 1rem;
-	background-color: #fff;
-	padding: 1rem;
-}
-
-.players-ranking-ending li {
-	list-style-type: none;
-}
-
-.players {
-	font-weight: 300;
-}
-
-table {
-	max-width: 300px;
-	border-collapse: collapse;
-}
-
-.table-titles > th,
-.table-titles > td {
-	font-size: 15px;
-	padding: 0.5rem;
-	text-align: center;
-}
-
-.winner {
-	font-size: 32px;
-	font-weight: 500;
-}
-
-.players-ranking-ending {
-	color: white;
-	margin-bottom: 1rem;
-}
-
-.restart-buttons {
-	display: flex;
-	flex-direction: column;
-}
-
-.restart-buttons > * {
-	margin-bottom: 1rem;
 }

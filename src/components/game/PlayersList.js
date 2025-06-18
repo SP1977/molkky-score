@@ -1,18 +1,19 @@
-import React from "react";
+import styles from "../../styles/shared.module.css";
+import Button from "../ui/Button";
 
 function PlayersList({ players, onRemovePlayer }) {
 	return (
-		<ul className="players-block">
+		<ul className={styles.playersBlock}>
 			{players.map((player) => (
-				<li className="playerlist" key={player.id}>
+				<li className={styles.playerList} key={player.id}>
 					{player.name}
-					<button onClick={() => onRemovePlayer(player.id)}>
+					<Button icon onClick={() => onRemovePlayer(player.id)}>
 						<img
 							src="./icons/croix.svg"
 							alt="supprimer ce joueur"
 							title="supprimer ce jour"
 						/>
-					</button>
+					</Button>
 				</li>
 			))}
 		</ul>
