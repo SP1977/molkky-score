@@ -1,4 +1,4 @@
-import { useMolkky } from "./contexts/MolkkyContext";
+import { useMolkky } from "../contexts/MolkkyContext";
 
 function Warning() {
 	const { message } = useMolkky();

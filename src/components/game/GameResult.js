@@ -1,6 +1,6 @@
-import style from "./Button.module.css";
+import style from "./../ui/Button.module.css";
 import React from "react";
-import { useMolkky } from "./contexts/MolkkyContext";
+import { useMolkky } from "../contexts/MolkkyContext";
 
 function Ending({
 	winner,

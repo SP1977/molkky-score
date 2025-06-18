@@ -1,4 +1,4 @@
-import style from "./Button.module.css";
+import style from "./../ui/Button.module.css";
 
 import { useState } from "react";
 

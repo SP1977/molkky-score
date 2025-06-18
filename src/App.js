@@ -1,9 +1,9 @@
 import { useMolkky } from "./components/contexts/MolkkyContext";
-import PlayersInscription from "./components/PlayersInscription";
-import PlayersList from "./components/PlayersList";
-import Button from "./components/Button";
-import Calculator from "./components/Calculator";
-import Ending from "./components/Ending";
+import PlayersInscription from "./components/game/PlayerRegistration";
+import PlayersList from "./components/game/PlayersList";
+import Button from "./components/ui/Button";
+import Calculator from "./components/game/ScoreCalculator";
+import Ending from "./components/game/GameResult";
 
 export default function App() {
 	const {

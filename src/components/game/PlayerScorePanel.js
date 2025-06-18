@@ -1,4 +1,4 @@
-import { useMolkky } from "./contexts/MolkkyContext";
+import { useMolkky } from "../contexts/MolkkyContext";
 
 function PlayerScore({ player, onScoreUpdate, isCurrent }) {
 	const { score, setScore } = useMolkky();

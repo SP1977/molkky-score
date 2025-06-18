@@ -1,7 +1,7 @@
-import { useMolkky } from "./contexts/MolkkyContext";
-import PlayerScore from "./PlayerScore";
-import style from "./Button.module.css";
-import Warning from "./Warning";
+import { useMolkky } from "../contexts/MolkkyContext";
+import PlayerScore from "./PlayerScorePanel";
+import style from "./../ui/Button.module.css";
+import Warning from "../ui/Warning";
 
 function Calculator() {
 	const {
