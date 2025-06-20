@@ -1,6 +1,13 @@
 import styles from "../../styles/shared.module.css";
 
-function Button({ children, label, onClick, small = false, icon = false }) {
+function Button({
+	children,
+	label,
+	onClick,
+	small = false,
+	icon = false,
+	type = "button",
+}) {
 	let btnClass = styles.btn;
 
 	if (icon) {
@@ -10,7 +17,7 @@ function Button({ children, label, onClick, small = false, icon = false }) {
 	}
 
 	return (
-		<button className={btnClass} onClick={onClick}>
+		<button type={type} className={btnClass} onClick={onClick}>
 			{children || label}
 		</button>
 	);

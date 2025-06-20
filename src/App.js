@@ -2,8 +2,8 @@ import { useMolkky } from "./components/contexts/MolkkyContext";
 import PlayersInscription from "./components/game/PlayerRegistration";
 import PlayersList from "./components/game/PlayersList";
 import Button from "./components/ui/Button";
-import Calculator from "./components/game/ScoreCalculator";
-import Ending from "./components/game/GameResult";
+import GameBoard from "./components/game/GameBoard";
+import GameResult from "./components/game/GameResult";
 
 export default function App() {
 	const {
@@ -69,11 +69,11 @@ export default function App() {
 					renderStartButton()}
 
 				{/* Afficher la phase du jeu en cours */}
-				{status === "letsPlay" && <Calculator />}
+				{status === "letsPlay" && <GameBoard />}
 
 				{/* Afficher la fin de la partie avec le gagnant */}
 				{status === "gameOver" && winner && (
-					<Ending
+					<GameResult
 						winner={winner}
 						players={players}
 						onRestartSamePlayers={handleRestartSamePlayers}

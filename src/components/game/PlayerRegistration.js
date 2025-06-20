@@ -1,20 +1,35 @@
 import styles from "../../styles/shared.module.css";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import Button from "../ui/Button";
 
-function PlayersInscription({ onAddPlayer }) {
+function PlayersRegistration({ onAddPlayer }) {
 	const [name, setName] = useState("");
+
+	// Formate un nom : majuscule initiale, après tiret, suppression des espaces
+	function formatName(name) {
+		return name
+			.trim()
+			.split("-")
+			.map(
+				(part) =>
+					part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+			)
+			.join("-");
+	}
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		const id = Date.now();
+		if (!name.trim()) return;
+
+		const id = uuidv4();
+		const formattedName = formatName(name);
 		const newPlayer = {
 			id,
-			name,
+			name: formattedName,
 			score: 0,
 			penalty: 0,
 		};
-		if (!name) return;
 		onAddPlayer(newPlayer);
 		setName("");
 	}
@@ -29,8 +44,9 @@ function PlayersInscription({ onAddPlayer }) {
 					placeholder="Nom du joueur"
 					value={name}
 					onChange={(e) => setName(e.target.value)}
+					maxLength={30}
 				/>
-				<Button small>
+				<Button type="submit" small>
 					<img
 						src="./icons/plus1.svg"
 						alt="ajouter un joueur"
@@ -42,4 +58,5 @@ function PlayersInscription({ onAddPlayer }) {
 		</>
 	);
 }
-export default PlayersInscription;
+
+export default PlayersRegistration;

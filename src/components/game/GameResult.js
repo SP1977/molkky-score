@@ -1,7 +1,7 @@
 import styles from "../../styles/shared.module.css";
 import { useMolkky } from "../contexts/MolkkyContext";
 
-function Ending({
+function GameResult({
 	winner,
 	players,
 	onRestartSamePlayers,
@@ -9,7 +9,6 @@ function Ending({
 	onResetGame,
 }) {
 	const { eliminatedPlayers } = useMolkky();
-	console.log("Liste des éliminés dans Ending :", eliminatedPlayers); // Debug
 	// Trier les joueurs restants par ordre décroissant de points
 	const sortedPlayers = players
 		.filter((player) => player.id !== winner.id) // Exclure le gagnant
@@ -52,4 +51,4 @@ function Ending({
 	);
 }
 
-export default Ending;
+export default GameResult;

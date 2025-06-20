@@ -1,13 +1,11 @@
-import { useMolkky } from "../contexts/MolkkyContext";
+import styles from "../../styles/shared.module.css";
 
-function Warning() {
-	const { message } = useMolkky();
-
+function Warning({ message = "" }) {
 	if (!message) return null;
 
 	return (
-		<div className="warning-block">
-			<p className="warning">{message}</p>
+		<div className={styles.warningBlock}>
+			<p className={styles.warning}>{message}</p>
 		</div>
 	);
 }

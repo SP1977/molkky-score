@@ -132,6 +132,7 @@ function MolkkyProvider({ children }) {
 						eliminated = true;
 						setEliminatedPlayers((prev) => [...prev, player]);
 						setMessage(`${player.name} a été éliminé.`);
+						setHasScoredThisTurn(false);
 						return null;
 					}
 				} else {
@@ -156,11 +157,10 @@ function MolkkyProvider({ children }) {
 		// If one player remains, end the game (the remaining player is the winner)
 		if (updatedPlayers.length === 1) handleEndGame(updatedPlayers[0]);
 		setPlayers(updatedPlayers);
+		if (eliminated) return;
 
 		// Update the current player index
-		const newIndex = eliminated
-			? currentPlayerIndex % updatedPlayers.length
-			: (currentPlayerIndex + 1) % updatedPlayers.length;
+		const newIndex = (currentPlayerIndex + 1) % updatedPlayers.length;
 		setCurrentPlayerIndex(newIndex);
 		setHasScoredThisTurn(true);
 	}
