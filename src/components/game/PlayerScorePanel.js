@@ -14,7 +14,7 @@ function PlayerScorePanel({ player, onScoreUpdate, isCurrent }) {
 
 	return (
 		<tr className={styles.tableTitles}>
-			<td>{player.name}</td>
+			<td className="word-break">{player.name}</td>
 			<td>{player.penalty}</td>
 			<td>{player.score}</td>
 			<td>

@@ -1,5 +1,6 @@
 import styles from "../../styles/shared.module.css";
 import { useMolkky } from "../contexts/MolkkyContext";
+import Button from "../ui/Button";
 
 function GameResult({
 	winner,
@@ -37,15 +38,15 @@ function GameResult({
 				)}
 			</ul>
 			<div className={styles.restartButtons}>
-				<button className={styles.btn} onClick={onRestartSamePlayers}>
-					Recommencer avec les mêmes joueurs
-				</button>
-				<button className={`${styles.btn}`} onClick={onModifyPlayers}>
+				<Button className={styles.btn} onClick={onRestartSamePlayers}>
+					Rejouer avec les mêmes joueurs
+				</Button>
+				<Button className={`${styles.btn}`} onClick={onModifyPlayers}>
 					Ajouter/Supprimer des joueurs
-				</button>
-				<button className={`${styles.btn}`} onClick={onResetGame}>
+				</Button>
+				<Button className={`${styles.btn}`} onClick={onResetGame}>
 					Recommencer à zéro
-				</button>
+				</Button>
 			</div>
 		</div>
 	);
