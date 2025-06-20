@@ -1,10 +1,16 @@
 import {
 	createContext,
 	useContext,
-	useEffect,
 	useReducer,
 	useState,
+	useEffect,
 } from "react";
+import {
+	isFault,
+	isEliminated,
+	isWinner,
+	getLeader,
+} from "../../utils/scoreLogic";
 
 const MolkkyContext = createContext();
 
@@ -16,10 +22,7 @@ const initialState = {
 function reducer(state, action) {
 	switch (action.type) {
 		case "subscribe":
-			return {
-				...state,
-				status: "addPlayers",
-			};
+			return { ...state, status: "addPlayers" };
 		case "addPlayers":
 			return { ...state, status: "form" };
 		case "startGame":
@@ -32,7 +35,6 @@ function reducer(state, action) {
 			return { ...state, status: "addPlayers" };
 		case "resetGame":
 			return { status: "appStarted" };
-
 		default:
 			throw new Error("Action inconnue");
 	}
@@ -40,28 +42,23 @@ function reducer(state, action) {
 
 function MolkkyProvider({ children }) {
 	const [state, dispatch] = useReducer(reducer, initialState);
-
 	const [players, setPlayers] = useState([]);
 	const [eliminatedPlayers, setEliminatedPlayers] = useState([]);
-	const [topPlayers, setTopPlayers] = useState([]);
 	const [history, setHistory] = useState([]);
 	const [winner, setWinner] = useState(null);
 	const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
 	const [message, setMessage] = useState("");
-
 	const [score, setScore] = useState("");
 	const [hasScoredThisTurn, setHasScoredThisTurn] = useState(false);
 
-	function shufflePlayers(array) {
-		return array.sort(() => Math.random() - 0.5);
-	}
+	const shufflePlayers = (array) => array.sort(() => Math.random() - 0.5);
 
 	function handleAddPlayer(player) {
 		setPlayers((prev) => [...prev, player]);
 	}
 
 	function handleRemovePlayer(playerId) {
-		setPlayers((prev) => prev.filter((player) => player.id !== playerId));
+		setPlayers((prev) => prev.filter((p) => p.id !== playerId));
 	}
 
 	function handleEndGame(winner) {
@@ -70,39 +67,25 @@ function MolkkyProvider({ children }) {
 	}
 
 	function handleRestartSamePlayers() {
-		// Fusionner les joueurs actifs et éliminés
-		const resetPlayers = [...players, ...eliminatedPlayers]
-			.filter(Boolean) // On garde uniquement les joueurs valides
-			.map((player) => ({
-				...player,
-				score: 0, // Remettre les scores à 0
-				penalty: 0, // Remettre les pénalités à 0
-			}));
-
-		// Mettre à jour les joueurs actifs et vider les joueurs éliminés
+		const resetPlayers = [...players, ...eliminatedPlayers].map((p) => ({
+			...p,
+			score: 0,
+			penalty: 0,
+		}));
 		setPlayers(resetPlayers);
-		setEliminatedPlayers([]); // On s'assure que cette liste est bien vidée
-		setCurrentPlayerIndex(0); // Redémarrer à partir du premier joueur
-
+		setEliminatedPlayers([]);
+		setCurrentPlayerIndex(0);
 		dispatch({ type: "restartSamePlayers" });
 	}
 
 	function handleModifyPlayers() {
-		// Réintégrer tous les joueurs (actifs et éliminés)
-		const allPlayers = [...players, ...eliminatedPlayers];
-
-		// Réinitialiser les scores et pénalités des joueurs
-		const resetPlayers = allPlayers.map((player) => ({
-			...player,
-			score: 0, // Réinitialise les scores
-			penalty: 0, // Réinitialise les pénalités
+		const resetPlayers = [...players, ...eliminatedPlayers].map((p) => ({
+			...p,
+			score: 0,
+			penalty: 0,
 		}));
-
-		// Mettre à jour les états
-		setPlayers(resetPlayers); // Réinitialiser la liste des joueurs actifs
-		setEliminatedPlayers([]); // Vider la liste des joueurs éliminés
-
-		// Basculer vers l'état de modification
+		setPlayers(resetPlayers);
+		setEliminatedPlayers([]);
 		dispatch({ type: "modifyPlayers" });
 	}
 
@@ -111,16 +94,7 @@ function MolkkyProvider({ children }) {
 		dispatch({ type: "resetGame" });
 	}
 
-	useEffect(() => {
-		if (players.length > 0) {
-			const maxScore = Math.max(...players.map((player) => player.score));
-			setTopPlayers(
-				players.filter((player) => player.score === maxScore)
-			);
-		}
-	}, [players]);
-
-	// Mise à jour du score du joueur
+	// Main logic for handling score updates
 	function handleScoreUpdate(playerId, newScore) {
 		if (isNaN(newScore) || newScore < 0 || newScore > 12) {
 			setMessage("Le score doit être compris entre 0 et 12!");
@@ -130,130 +104,86 @@ function MolkkyProvider({ children }) {
 
 		setMessage("");
 
-		setPlayers((prevPlayers) => {
-			const updatedPlayers = prevPlayers
-				.map((player) => {
-					if (player.id === playerId) {
-						let updatedPenalty = player.penalty;
-						let updatedScore = player.score + newScore;
+		// Find the current player and their index
+		const currentPlayer = players.find((p) => p.id === playerId);
+		if (!currentPlayer) return;
 
-						// Si le joueur marque plus de 50, réinitialiser à 25
-						if (updatedScore > 50) {
-							updatedScore = 25;
-						}
+		let eliminated = false;
 
-						// Si le score est exactement 50, c'est le gagnant
-						if (updatedScore === 50) {
-							setWinner(player);
-							handleEndGame(player);
-							return { ...player, score: updatedScore };
-						}
+		// Update the player's score and penalty
+		const updatedPlayers = players
+			.map((player) => {
+				if (player.id !== playerId) return player;
 
-						// Si le score est 0, incrémenter les pénalités
-						if (newScore === 0) {
-							updatedPenalty += 1;
+				let updatedScore = player.score + newScore;
+				if (updatedScore > 50) updatedScore = 25;
 
-							// Afficher un avertissement au début du 3e tour
-							if (updatedPenalty === 2) {
-								// alert(
-								// 	`${player.name}, attention ! Si vous faites 0 points encore une fois, vous serez éliminé.`
-								// );
-								setMessage(
-									`${player.name} : si vous faites 0 points encore une fois, vous serez éliminé.`
-								);
-							}
+				let updatedPenalty = player.penalty;
 
-							// Éliminer le joueur après 3 pénalités
-							if (updatedPenalty >= 3) {
-								setEliminatedPlayers((prev) => {
-									const updatedEliminated = [...prev, player];
-
-									// Vérifier s'il reste plus d'un joueur après l'élimination
-									const remainingPlayers = prevPlayers.filter(
-										(p) => p.id !== playerId
-									);
-									if (remainingPlayers.length === 1) {
-										// Un seul joueur restant = fin du jeu
-										handleEndGame(remainingPlayers[0]);
-									} else {
-										// Il reste d'autres joueurs -> afficher le message d'élimination
-										setMessage(
-											`${player.name} a été éliminé.`
-										);
-									}
-
-									return updatedEliminated;
-								});
-								setHasScoredThisTurn(false);
-								return null; // Retirer le joueur des joueurs actifs
-							}
-						} else {
-							updatedPenalty = 0; // Réinitialiser les pénalités si le joueur marque
-						}
-
-						// Historique des scores
-						setHistory((prevHistory) => [
-							...prevHistory,
-							{
-								...player,
-								score: player.score,
-								penalty: player.penalty,
-							},
-						]);
-
-						// Met à jour le joueur actif
-						return {
-							...player,
-							score: updatedScore,
-							penalty: updatedPenalty,
-						};
+				// Faults and elimination logic
+				if (isFault(newScore)) {
+					updatedPenalty++;
+					if (updatedPenalty === 2) {
+						setMessage(
+							`${player.name} : si vous ne marquez pas de points au prochain tour, vous serez éliminé.`
+						);
 					}
-					return player; // Pas de changement pour les autres joueurs
-				})
-				.filter(Boolean); // Supprime les joueurs éliminés
+					if (isEliminated(updatedPenalty)) {
+						eliminated = true;
+						setEliminatedPlayers((prev) => [...prev, player]);
+						setMessage(`${player.name} a été éliminé.`);
+						return null;
+					}
+				} else {
+					updatedPenalty = 0;
+				}
 
-			// Vérification : aucun joueur restant
-			if (updatedPlayers.length === 0) {
-				alert("Tous les joueurs ont été éliminés. Fin du jeu !");
-				return [];
-			}
+				// History and winner logic
+				const updatedPlayer = {
+					...player,
+					score: updatedScore,
+					penalty: updatedPenalty,
+				};
+				setHistory((h) => [...h, { ...player }]);
+				if (isWinner(updatedScore)) {
+					setWinner(updatedPlayer);
+					handleEndGame(updatedPlayer);
+				}
+				return updatedPlayer;
+			})
+			.filter(Boolean);
 
-			// Vérification : un seul joueur restant
-			if (updatedPlayers.length === 1) {
-				const remainingPlayer = updatedPlayers[0];
-				handleEndGame(remainingPlayer);
-				return updatedPlayers;
-			}
+		// If one player remains, end the game (the remaining player is the winner)
+		if (updatedPlayers.length === 1) handleEndGame(updatedPlayers[0]);
+		setPlayers(updatedPlayers);
 
-			// Retourne la liste mise à jour
-			return updatedPlayers;
-		});
-
-		// Réajuster l’index du joueur actuel
-		setCurrentPlayerIndex((prevIndex) => {
-			const activePlayers = players.filter(Boolean);
-			if (activePlayers.length === 0) return 0; // Personne actif
-			return (prevIndex + 1) % activePlayers.length;
-		});
-
+		// Update the current player index
+		const newIndex = eliminated
+			? currentPlayerIndex % updatedPlayers.length
+			: (currentPlayerIndex + 1) % updatedPlayers.length;
+		setCurrentPlayerIndex(newIndex);
 		setHasScoredThisTurn(true);
 	}
 
 	function handleUndo() {
-		const lastState = history.pop();
-		if (lastState) {
-			setPlayers((prevPlayers) =>
-				prevPlayers.map((player) =>
-					player.id === lastState.id ? lastState : player
-				)
+		const last = history.pop();
+		if (last) {
+			setPlayers((prev) =>
+				prev.map((p) => (p.id === last.id ? last : p))
 			);
-			setHistory(history);
+			setHistory([...history]);
 			setCurrentPlayerIndex(
-				(prevIndex) => (prevIndex - 1 + players.length) % players.length
+				(i) => (i - 1 + players.length) % players.length
 			);
 		}
 		setHasScoredThisTurn(false);
 	}
+
+	const topPlayers = getLeader(players);
+
+	useEffect(() => {
+		getLeader(players);
+	}, [players]);
 
 	return (
 		<MolkkyContext.Provider
@@ -289,7 +219,7 @@ function MolkkyProvider({ children }) {
 function useMolkky() {
 	const context = useContext(MolkkyContext);
 	if (context === undefined)
-		throw new Error("MolkkyContext was used outside of the PostProvider");
+		throw new Error("MolkkyContext must be used within a MolkkyProvider");
 	return context;
 }
 
