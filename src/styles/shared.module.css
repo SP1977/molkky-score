@@ -80,9 +80,15 @@
 	max-width: 380px;
 }
 
-.pointsForm {
-	max-width: 100px;
+.activePlayer {
+	background-color: var(--primary-color) !important;
+	color: white;
+	font-weight: bold;
 }
+
+/* .pointsForm {
+	max-width: 100px;
+} */
 
 .pointsGroup {
 	display: flex;
@@ -105,19 +111,18 @@
 }
 
 /* Tables */
-.tableTitles button,
-.pointsForm button {
+/* .tableTitles button {
 	margin-right: 5px;
 	background-color: transparent;
 	border: none;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
+} */
 
-.tableTitles button img {
+/* .tableTitles button img {
 	width: 15px;
-}
+} */
 
 .ranking {
 	font-weight: 900;
@@ -127,6 +132,10 @@
 table {
 	border-collapse: collapse;
 	width: 100%;
+}
+
+.highlightedRow {
+	background-color: #e6e3c3; /* même couleur que la ligne du joueur actif */
 }
 
 .tableTitles > th,
@@ -170,6 +179,55 @@ table {
 	flex-direction: column;
 	gap: 0.5rem;
 	margin-top: 1.5rem;
+}
+
+/* NUMPAD */
+.numberPad {
+	margin-top: 2rem;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	max-width: 380px;
+}
+
+.numpadGrid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	width: 100%;
+	gap: 10px;
+	/* max-width: 380px; */
+}
+
+.numpadGrid button {
+	padding: 1rem;
+	font-size: 1.2rem;
+	/* font-family: "Parkinsans", sans-serif; */
+	background-color: var(--primary-color);
+	color: var(--secondary-color);
+	border: 1px solid black;
+	box-shadow: 2px 2px 0 #3d4731;
+}
+
+.undoBtn {
+	grid-column: 4 / 4; /* place à droite sur la dernière ligne */
+	background-color: #f08080 !important;
+	color: white;
+	font-weight: bold;
+	grid-column: span 2;
+}
+
+.zeroBtn {
+	grid-column: span 2;
+}
+
+/* Score history */
+.playerHistory {
+	text-align: left;
+	padding: 0.3rem 1rem;
+	font-size: 0.9rem;
+	color: var(--secondary-color);
+	word-break: break-word;
+	white-space: normal;
 }
 
 @media (min-width: 768px) {

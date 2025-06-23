@@ -50,6 +50,7 @@ function MolkkyProvider({ children }) {
 	const [message, setMessage] = useState("");
 	const [score, setScore] = useState("");
 	const [hasScoredThisTurn, setHasScoredThisTurn] = useState(false);
+	const canUndo = history.length > 0;
 
 	const shufflePlayers = (array) => array.sort(() => Math.random() - 0.5);
 
@@ -66,17 +67,28 @@ function MolkkyProvider({ children }) {
 		dispatch({ type: "endGame", winner });
 	}
 
+	function clearHistory() {
+		setHistory([]);
+		setHasScoredThisTurn(false);
+		setMessage("");
+	}
+
 	function handleRestartSamePlayers() {
 		const resetPlayers = [...players, ...eliminatedPlayers].map((p) => ({
 			...p,
 			score: 0,
 			penalty: 0,
 		}));
+
 		setPlayers(resetPlayers);
 		setEliminatedPlayers([]);
-		setCurrentPlayerIndex(0);
-		setHasScoredThisTurn(false);
-		setMessage("");
+
+		// Recalibrer l'index si nécessaire
+		setCurrentPlayerIndex((i) =>
+			resetPlayers.length === 0 ? 0 : i >= resetPlayers.length ? 0 : i
+		);
+
+		clearHistory();
 		dispatch({ type: "restartSamePlayers" });
 	}
 
@@ -88,11 +100,18 @@ function MolkkyProvider({ children }) {
 		}));
 		setPlayers(resetPlayers);
 		setEliminatedPlayers([]);
+		// setHistory([]);
+		setCurrentPlayerIndex((i) => (i >= resetPlayers.length ? 0 : i));
+
+		clearHistory();
 		dispatch({ type: "modifyPlayers" });
 	}
 
 	function handleResetGame() {
 		setPlayers([]);
+		setEliminatedPlayers([]);
+		setHistory([]);
+		setCurrentPlayerIndex(0);
 		dispatch({ type: "resetGame" });
 	}
 
@@ -161,9 +180,11 @@ function MolkkyProvider({ children }) {
 		setPlayers(updatedPlayers);
 		if (eliminated) return;
 
-		// Update the current player index
-		const newIndex = (currentPlayerIndex + 1) % updatedPlayers.length;
-		setCurrentPlayerIndex(newIndex);
+		// Fix: ensure currentPlayerIndex is updated relative to remaining players
+		const validIndex = updatedPlayers.findIndex((p) => p.id === playerId);
+		const nextIndex =
+			validIndex >= 0 ? (validIndex + 1) % updatedPlayers.length : 0;
+		setCurrentPlayerIndex(nextIndex);
 		setHasScoredThisTurn(true);
 	}
 
@@ -211,6 +232,8 @@ function MolkkyProvider({ children }) {
 				score,
 				setScore,
 				hasScoredThisTurn,
+				canUndo,
+				setCurrentPlayerIndex,
 			}}
 		>
 			{children}

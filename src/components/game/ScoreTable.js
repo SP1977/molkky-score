@@ -24,7 +24,7 @@ function ScoreTable() {
 					<th>Nom</th>
 					<th>Fautes</th>
 					<th>Total</th>
-					<th>Points</th>
+					{/* <th>Points</th> */}
 				</tr>
 			</thead>
 			<tbody>
