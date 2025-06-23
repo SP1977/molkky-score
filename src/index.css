@@ -3,17 +3,6 @@
 	--secondary-color: #536143;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
-}
-
-/* Pour Firefox */
-input[type="number"] {
-	-moz-appearance: textfield;
-}
-
 *,
 *::before,
 *::after {
@@ -22,13 +11,48 @@ input[type="number"] {
 	padding: 0;
 }
 
-body {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
 	margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+	-moz-appearance: textfield;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+.word-break {
+	word-break: break-word;
+	white-space: normal;
+}
+
+body {
 	font-family: "Parkinsans", sans-serif;
 	font-style: normal;
 	color: var(--primary-color);
 	background-color: var(--secondary-color);
 	font-size: 15px;
+}
+
+body * {
+	font-family: "Parkinsans", sans-serif;
+	font-style: normal;
 }
 
 .app,
@@ -38,12 +62,24 @@ body {
 	align-items: center;
 	margin: auto;
 	height: 100vh;
-	max-width: 300px;
+	justify-self: unset;
 }
 
 .header {
-	margin: 6rem 0 4rem 0;
-	text-align: left;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 6rem;
+}
+
+main {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-top: 4rem;
 }
 
 .title {
@@ -61,4 +97,19 @@ body {
 	color: white;
 	font-weight: 300;
 	margin-bottom: 0.8rem;
+}
+
+@media (min-width: 768px) {
+	body {
+		font-size: 20px;
+	}
+
+	.title {
+		margin-bottom: -2rem;
+		font-size: 100px;
+	}
+
+	.subtitle {
+		font-size: 25px;
+	}
 }

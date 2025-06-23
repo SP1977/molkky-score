@@ -76,6 +76,7 @@ function MolkkyProvider({ children }) {
 		setEliminatedPlayers([]);
 		setCurrentPlayerIndex(0);
 		setHasScoredThisTurn(false);
+		setMessage("");
 		dispatch({ type: "restartSamePlayers" });
 	}
 

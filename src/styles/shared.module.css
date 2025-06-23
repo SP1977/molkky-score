@@ -1,19 +1,16 @@
-/* Boutons */
 .btn {
 	padding: 1rem 1.5rem;
-	font-family: "Parkinsans", sans-serif;
 	color: var(--secondary-color);
-	border: 1px black solid;
+	border: none;
 	font-size: 15px;
 	background-color: var(--primary-color);
-	columns: var(--primary-color);
 	box-shadow: 4px 4px 0 #3d4731;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	min-width: 300px;
 	width: 100%;
+	max-width: 380px;
 }
 
 .btn:hover,
@@ -40,9 +37,9 @@
 .registrationForm,
 .pointsForm {
 	display: flex;
-	width: 300px;
-	max-width: 300px;
-	justify-content: space-between;
+	width: 100%;
+	padding: 1rem;
+	max-width: 380px;
 }
 
 .registrationForm input {
@@ -50,26 +47,14 @@
 	margin-right: 15px;
 	padding: 0.5rem;
 	color: var(--secondary-color);
-	font-family: "Parkinsans", sans-serif;
 	box-shadow: 4px 4px 0 #3d4731;
+	border: none;
 }
 
-.pointsForm {
-	width: 100px;
-	max-width: 100px;
-}
-
-.pointsGroup {
-	display: flex;
-	align-items: space-between;
-	gap: 10px;
-	white-space: nowrap;
-}
-
-/* Player list */
 .playersBlock {
-	margin: 1rem 0;
-	width: 297px;
+	display: flex;
+	flex-direction: column;
+	max-width: 380px;
 }
 
 .playerList {
@@ -79,50 +64,69 @@
 	align-items: center;
 	justify-content: start;
 	color: white;
+	max-width: 380px;
+	padding: 0 1rem;
 }
 
+.scoreTable,
+.ranking {
+	background-color: #fff;
+	border: none;
+	box-shadow: 4px 4px 0 #3d4731;
+	padding: 1rem;
+	margin-bottom: 1rem;
+	color: var(--secondary-color);
+	width: 100%;
+	max-width: 380px;
+}
+
+.pointsForm {
+	max-width: 100px;
+}
+
+.pointsGroup {
+	display: flex;
+	gap: 10px;
+	white-space: nowrap;
+}
+
+.pointsGroup input {
+	width: 60px;
+	padding: 0.1rem;
+	color: var(--secondary-color);
+	font-size: 15px;
+	background-color: var(--primary-color);
+	border: none;
+}
+
+.playersBlock {
+	margin: 1rem 0;
+	width: 100%;
+}
+
+/* Tables */
 .tableTitles button,
 .pointsForm button {
 	margin-right: 5px;
 	background-color: transparent;
 	border: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-/* Tables */
-.scoreTable,
-.ranking {
-	background-color: #fff;
-	border: 1px black solid;
-	box-shadow: 4px 4px 0 #3d4731;
-	padding: 1rem;
-	margin-bottom: 1rem;
-	color: var(--secondary-color);
-	min-width: 330px;
-	margin-left: auto;
+.tableTitles button img {
+	width: 15px;
 }
 
 .ranking {
 	font-weight: 900;
-	width: 330px;
-}
-
-.players {
-	font-weight: 300;
-}
-
-.scoreTable input {
-	width: 60px;
-	margin-right: 5px;
-	padding: 0.1rem;
-	font-family: "Parkinsans", sans-serif;
-	color: var(--secondary-color);
-	font-size: 15px;
-	background-color: var(--primary-color);
+	width: 100%;
 }
 
 table {
-	max-width: 300px;
 	border-collapse: collapse;
+	width: 100%;
 }
 
 .tableTitles > th,
@@ -131,12 +135,12 @@ table {
 	text-align: center;
 }
 
-/* Warnings */
 .warningBlock {
 	padding: 1rem;
 	border: 2px red solid;
 	background-color: #fff;
-	max-width: 330px;
+	width: 100%;
+	max-width: 380px;
 	margin: 1rem auto;
 	box-shadow: 4px 4px 0 #3d4731;
 	color: red;
@@ -145,8 +149,6 @@ table {
 .warning {
 	color: red;
 }
-
-/* Zones de score / classement */
 
 .playersRankingEnding li {
 	list-style-type: none;
@@ -168,4 +170,19 @@ table {
 	flex-direction: column;
 	gap: 0.5rem;
 	margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+	.btn {
+		font-size: 20px;
+	}
+
+	.scoreTable input {
+		font-size: 20px;
+		width: 70px;
+	}
+
+	.winner {
+		font-size: 40px;
+	}
 }
