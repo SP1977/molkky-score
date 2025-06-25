@@ -18,9 +18,9 @@ function GameResult({
 	return (
 		<div className="ending">
 			<div className={styles.ribbonWrapper}>
-				<h3 className={`${styles.ribbon} subtitle-white`}>
+				<p className={`${styles.ribbon} subtitle-white`}>
 					{winner.name} a gagné!
-				</h3>
+				</p>
 			</div>
 
 			<ul className={styles.playersRankingEnding}>
