@@ -17,24 +17,27 @@ function GameResult({
 
 	return (
 		<div className="ending">
-			<h3 className={`${styles.winner} subtitle-white`}>
-				{winner.name} a gagné!
-			</h3>
-			<h4 className="subtitle-white">Classement des autres joueurs :</h4>
+			<div className={styles.ribbonWrapper}>
+				<h3 className={`${styles.ribbon} subtitle-white`}>
+					{winner.name} a gagné!
+				</h3>
+			</div>
+
 			<ul className={styles.playersRankingEnding}>
-				{sortedPlayers.map((player) => (
-					<li key={player.id}>
-						{player.name} : {player.score} points
-					</li>
-				))}
-				{eliminatedPlayers && eliminatedPlayers.length > 0 && (
-					<>
-						<ul className={styles.playersRankingEnding}>
-							{eliminatedPlayers.map((player) => (
-								<li key={player.id}>{player.name} : éliminé</li>
-							))}
-						</ul>
-					</>
+				{[...sortedPlayers, ...eliminatedPlayers].map(
+					(player, index) => {
+						const isEliminated = eliminatedPlayers.some(
+							(p) => p.id === player.id
+						);
+						return (
+							<li key={player.id}>
+								{index + 2}. {player.name}{" "}
+								<span>
+									{isEliminated ? "éliminé" : player.score}
+								</span>
+							</li>
+						);
+					}
 				)}
 			</ul>
 			<div className={styles.restartButtons}>

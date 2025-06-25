@@ -1,27 +1,29 @@
+/* Buttons */
 .btn {
 	padding: 1rem 1.5rem;
 	color: var(--secondary-color);
 	border: none;
 	font-size: 15px;
 	background-color: var(--primary-color);
-	box-shadow: 4px 4px 0 #3d4731;
+	box-shadow: 4px 4px 0 var(--shadow-color);
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	max-width: 380px;
+	max-width: 100%;
 }
 
 .btn:hover,
 .btn:active {
-	box-shadow: 2px 2px 0 #3d4731;
+	box-shadow: 2px 2px 0 var(--shadow-color);
 	transform: scale(0.99);
 }
 
 .btnSmall {
 	padding: 0.8rem;
-	background-color: white;
+	background-color: var(--primary-color);
+	color: var(--secondary-color);
 	min-width: min-content;
 	width: min-content;
 	font-size: 1.1rem;
@@ -31,30 +33,35 @@
 	background-color: transparent !important;
 	border: none;
 	margin-right: 5px;
+	display: flex;
 }
 
-/* Formulaires */
+/* Forms */
 .registrationForm,
 .pointsForm {
 	display: flex;
 	width: 100%;
-	padding: 1rem;
-	max-width: 380px;
+	max-width: 100%;
 }
 
 .registrationForm input {
 	width: 100%;
 	margin-right: 15px;
 	padding: 0.5rem;
-	color: var(--secondary-color);
-	box-shadow: 4px 4px 0 #3d4731;
+	color: var(--font-color-dark);
+	box-shadow: 4px 4px 0 var(--shadow-color);
 	border: none;
 }
 
+.registrationForm input::placeholder {
+	color: var(--font-color-dark) !important;
+	font-size: 15px;
+}
+
+/* Players list Registration page */
 .playersBlock {
-	display: flex;
-	flex-direction: column;
-	max-width: 380px;
+	margin: 1rem 0;
+	width: 100%;
 }
 
 .playerList {
@@ -63,106 +70,67 @@
 	flex-direction: row-reverse;
 	align-items: center;
 	justify-content: start;
-	color: white;
-	max-width: 380px;
-	padding: 0 1rem;
+	color: var(--font-color-dark);
+	max-width: 100%;
 }
 
-.scoreTable,
-.ranking {
-	background-color: #fff;
-	border: none;
-	box-shadow: 4px 4px 0 #3d4731;
-	padding: 1rem;
-	margin-bottom: 1rem;
-	color: var(--secondary-color);
+/* Ribbons */
+.ribbonWrapper {
 	width: 100%;
-	max-width: 380px;
+	margin-bottom: 2.3rem;
+	display: inline-block;
+	filter: drop-shadow(4px 4px 0 var(--shadow-color));
 }
 
-.pointsForm {
-	max-width: 100px;
-}
-
-.pointsGroup {
-	display: flex;
-	gap: 10px;
-	white-space: nowrap;
-}
-
-.pointsGroup input {
-	width: 60px;
-	padding: 0.1rem;
-	color: var(--secondary-color);
-	font-size: 15px;
-	background-color: var(--primary-color);
-	border: none;
-}
-
-.playersBlock {
-	margin: 1rem 0;
-	width: 100%;
-}
-
-/* Tables */
-.tableTitles button,
-.pointsForm button {
-	margin-right: 5px;
-	background-color: transparent;
-	border: none;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.tableTitles button img {
-	width: 15px;
-}
-
-.ranking {
+.ribbon {
+	position: relative;
+	display: inline-block;
 	font-weight: 900;
 	width: 100%;
-}
-
-table {
-	border-collapse: collapse;
-	width: 100%;
-}
-
-.tableTitles > th,
-.tableTitles > td {
-	padding: 0.5rem;
+	padding: 1rem 3rem;
+	background-color: var(--tertiary-color);
+	color: var(--secondary-color);
 	text-align: center;
+	clip-path: polygon(0 0, 100% 0, 95% 50%, 100% 100%, 0% 100%, 5% 50%);
 }
 
-.warningBlock {
-	padding: 1rem;
-	border: 2px red solid;
-	background-color: #fff;
-	width: 100%;
-	max-width: 380px;
-	margin: 1rem auto;
-	box-shadow: 4px 4px 0 #3d4731;
-	color: red;
-}
-
-.warning {
-	color: red;
-}
-
-.playersRankingEnding li {
-	list-style-type: none;
-	color: white;
-}
-
+/* Score zone */
 .players {
+	/* Leader banner */
 	font-weight: 300;
 }
 
-.winner {
-	font-size: 32px;
-	font-weight: 500;
-	text-align: center;
+.scoreBlock {
+	border: none;
+	margin-bottom: 1rem;
+	color: var(--font-color-dark);
+	width: 100%;
+}
+
+.playerScoreRow {
+	box-shadow: 4px 4px 0 var(--shadow-color);
+	background-color: #f7f5f2;
+	display: grid;
+	grid-template-columns: 1fr repeat(2, 40px);
+	padding: 0.8rem;
+	margin-bottom: 0.5rem;
+	border-radius: 5px;
+}
+
+.highlightedRow {
+	background-color: #fff;
+}
+
+/* End screen */
+.playersRankingEnding {
+	width: 100%;
+}
+
+.playersRankingEnding li {
+	display: flex;
+	justify-content: space-between;
+	list-style-type: none;
+	color: var(--font-color-dark);
 }
 
 .restartButtons {
@@ -172,17 +140,103 @@ table {
 	margin-top: 1.5rem;
 }
 
+/* NUMPAD */
+.numberPad {
+	margin-top: 1rem;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	max-width: 100%;
+}
+
+.numpadGrid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	width: 100%;
+	gap: 10px;
+}
+
+.numpadGrid button {
+	padding: 1rem;
+	background-color: var(--primary-color);
+	color: var(--secondary-color);
+	border: none;
+	cursor: pointer;
+	box-shadow: 4px 4px 0 var(--shadow-color);
+	border-radius: 5px;
+	font-size: 15px;
+}
+
+.numpadGrid button:hover,
+.numpadGrid button:active {
+	box-shadow: 2px 2px 0 var(--shadow-color);
+	transform: scale(0.99);
+}
+
+.undoBtn {
+	grid-column: 4 / 4;
+	background-color: var(--warning-color) !important;
+	color: white;
+	font-weight: bold;
+	grid-column: span 3;
+}
+
+.undoBtn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	box-shadow: none;
+}
+
+.zeroBtn {
+	grid-column: span 1;
+}
+
+/* Modal */
+.modalOverlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: var(--secondary-color);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 10;
+}
+
+.modalContent {
+	background: var(--warning-color);
+	color: white;
+	padding: 8rem 4rem;
+	border-radius: 5px;
+	position: relative;
+	width: 80%;
+	max-width: 400px;
+	text-align: center;
+	box-shadow: 4px 4px 0 var(--shadow-color);
+}
+
+.closeButton {
+	position: absolute;
+	top: 0px;
+	right: 15px;
+	background: none;
+	border: none;
+	font-size: 3rem;
+	color: var(--font-color-dark);
+	cursor: pointer;
+}
+
 @media (min-width: 768px) {
-	.btn {
-		font-size: 20px;
-	}
-
-	.scoreTable input {
-		font-size: 20px;
-		width: 70px;
-	}
-
 	.winner {
 		font-size: 40px;
+	}
+
+	.btn,
+	.registrationForm input,
+	.registrationForm input::placeholder,
+	.numberPad button {
+		font-size: 20px;
 	}
 }

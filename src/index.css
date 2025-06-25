@@ -1,6 +1,10 @@
 :root {
-	--primary-color: #cdc59a;
-	--secondary-color: #536143;
+	--primary-color: #b0c1a7;
+	--secondary-color: #f0ece5;
+	--tertiary-color: #b7a0b9;
+	--shadow-color: #e3ded4;
+	--font-color-dark: #aa7e77;
+	--warning-color: #fcb3a0;
 }
 
 *,
@@ -19,6 +23,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 /* Firefox */
 input[type="number"] {
+	appearance: textfield;
 	-moz-appearance: textfield;
 }
 
@@ -42,12 +47,19 @@ input[type="number"] {
 	white-space: normal;
 }
 
+.flex-end {
+	display: flex;
+	justify-content: flex-end;
+}
+
 body {
 	font-family: "Parkinsans", sans-serif;
 	font-style: normal;
 	color: var(--primary-color);
 	background-color: var(--secondary-color);
 	font-size: 15px;
+	/* background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='5' y1='10' x2='15' y2='12' stroke='%23d8cfbd' stroke-width='1'/%3E%3Cline x1='30' y1='5' x2='35' y2='15' stroke='%23d8cfbd' stroke-width='1'/%3E%3Cline x1='10' y1='30' x2='20' y2='35' stroke='%23d8cfbd' stroke-width='1'/%3E%3Cline x1='40' y1='40' x2='50' y2='45' stroke='%23d8cfbd' stroke-width='1'/%3E%3Cline x1='20' y1='50' x2='25' y2='55' stroke='%23d8cfbd' stroke-width='1'/%3E%3Cline x1='45' y1='15' x2='55' y2='20' stroke='%23d8cfbd' stroke-width='1'/%3E%3C/svg%3E"); */
+	/* background-repeat: repeat; */
 }
 
 body * {
@@ -65,51 +77,50 @@ body * {
 	justify-self: unset;
 }
 
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-top: 3rem;
+	width: 300px;
+}
+
 .header {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: 6rem;
+	margin-top: 1rem;
 }
 
-main {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	margin-top: 4rem;
-}
-
-.title {
-	margin-bottom: -1.5rem;
+.header .title {
+	margin-bottom: -1.8rem;
 	font-size: 80px;
 }
 
-.subtitle {
-	margin-bottom: 2rem;
-	font-size: 20px;
-	margin-left: 3px;
-}
-
-.subtitle-white {
-	color: white;
-	font-weight: 300;
-	margin-bottom: 0.8rem;
+.header .subtitle {
+	/* margin-bottom: 1.5rem; */
+	align-self: center;
+	margin-right: 55px;
 }
 
 @media (min-width: 768px) {
 	body {
-		font-size: 20px;
+		font-size: 18px;
 	}
 
-	.title {
+	main {
+		width: 375px;
+	}
+
+	.header .title {
 		margin-bottom: -2rem;
 		font-size: 100px;
 	}
 
-	.subtitle {
+	.header .subtitle {
 		font-size: 25px;
+		margin-right: 100px;
 	}
 }

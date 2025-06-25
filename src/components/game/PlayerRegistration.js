@@ -36,12 +36,14 @@ function PlayersRegistration({ onAddPlayer }) {
 
 	return (
 		<>
-			<h3 className="subtitle-white">Qui joue?</h3>
+			<div className={styles.ribbonWrapper}>
+				<h3 className={styles.ribbon}>Inscrivez des joueurs!</h3>
+			</div>
 			<form className={styles.registrationForm} onSubmit={handleSubmit}>
 				<input
 					autoFocus
 					type="text"
-					placeholder="Nom du joueur"
+					placeholder="Nom"
 					value={name}
 					onChange={(e) => setName(e.target.value)}
 					maxLength={30}

@@ -18,26 +18,16 @@ function ScoreTable() {
 	];
 
 	return (
-		<table className={styles.scoreTable}>
-			<thead>
-				<tr className={styles.tableTitles}>
-					<th>Nom</th>
-					<th>Fautes</th>
-					<th>Total</th>
-					<th>Points</th>
-				</tr>
-			</thead>
-			<tbody>
-				{reorderedPlayers.map((player) => (
-					<PlayerScorePanel
-						key={player.id}
-						player={player}
-						isCurrent={player.id === currentPlayer.id}
-						onScoreUpdate={handleScore}
-					/>
-				))}
-			</tbody>
-		</table>
+		<div className={styles.scoreBlock}>
+			{reorderedPlayers.map((player) => (
+				<PlayerScorePanel
+					key={player.id}
+					player={player}
+					isCurrent={player.id === currentPlayer.id}
+					onScoreUpdate={handleScore}
+				/>
+			))}
+		</div>
 	);
 }
 
