@@ -8,8 +8,8 @@ You can test the current version [here](https://molkky-calculator.netlify.app/)
 ## Features to be added and improvements :
 
 -   localStorage
--   Improve UX (number pad, settings with game rules and game options)
--   Improve CSS
+-   Improve UX (settings with game rules and game options)
+-   Improve design
 
 ## Mölkky rules
 
