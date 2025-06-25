@@ -22,25 +22,7 @@ function GameResult({
 					{winner.name} a gagné!
 				</h3>
 			</div>
-			{/* <ul className={styles.playersRankingEnding}>
-				{sortedPlayers.map((player, index) => (
-					<li key={player.id}>
-						{index + 2}. {player.name} <span>{player.score}</span>
-					</li>
-				))}
-				{eliminatedPlayers && eliminatedPlayers.length > 0 && (
-					<>
-						<ul className={styles.playersRankingEnding}>
-							{eliminatedPlayers.map((player, index) => (
-								<li key={player.id}>
-									{index + 3}. {player.name}{" "}
-									<span>éliminé</span>
-								</li>
-							))}
-						</ul>
-					</>
-				)}
-			</ul> */}
+
 			<ul className={styles.playersRankingEnding}>
 				{[...sortedPlayers, ...eliminatedPlayers].map(
 					(player, index) => {

@@ -19,14 +19,6 @@ function ScoreTable() {
 
 	return (
 		<div className={styles.scoreBlock}>
-			{/* <thead> */}
-			{/* <tr className={styles.tableTitles}>
-					<th>Nom</th>
-					<th>Fautes</th>
-					<th>Total</th>
-				</tr> */}
-			{/* </thead> */}
-			{/* <tbody> */}
 			{reorderedPlayers.map((player) => (
 				<PlayerScorePanel
 					key={player.id}
@@ -35,7 +27,6 @@ function ScoreTable() {
 					onScoreUpdate={handleScore}
 				/>
 			))}
-			{/* </tbody> */}
 		</div>
 	);
 }

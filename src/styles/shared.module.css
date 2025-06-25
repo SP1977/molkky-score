@@ -1,3 +1,4 @@
+/* Buttons */
 .btn {
 	padding: 1rem 1.5rem;
 	color: var(--secondary-color);
@@ -34,7 +35,7 @@
 	margin-right: 5px;
 }
 
-/* Formulaires */
+/* Forms */
 .registrationForm,
 .pointsForm {
 	display: flex;
@@ -51,10 +52,15 @@
 	border: none;
 }
 
+.registrationForm input::placeholder {
+	color: var(--font-color-dark) !important;
+	font-size: 15px;
+}
+
+/* Players list Registration page */
 .playersBlock {
-	display: flex;
-	flex-direction: column;
-	max-width: 100%;
+	margin: 1rem 0;
+	width: 100%;
 }
 
 .playerList {
@@ -67,9 +73,10 @@
 	max-width: 100%;
 }
 
+/* Ribbons */
 .ribbonWrapper {
 	width: 100%;
-	margin-bottom: 2rem;
+	margin-bottom: 2.3rem;
 	display: inline-block;
 	filter: drop-shadow(4px 4px 0 var(--shadow-color));
 }
@@ -86,29 +93,10 @@
 	clip-path: polygon(0 0, 100% 0, 95% 50%, 100% 100%, 0% 100%, 5% 50%);
 }
 
-.pointsGroup {
-	display: flex;
-	gap: 10px;
-	white-space: nowrap;
-}
-
-.pointsGroup input {
-	width: 60px;
-	padding: 0.1rem;
-	color: var(--secondary-color);
-	font-size: 15px;
-	background-color: var(--primary-color);
-	border: none;
-}
-
-.playersBlock {
-	margin: 1rem 0;
-	width: 100%;
-}
-
-.ranking {
-	font-weight: 900;
-	width: 100%;
+/* Score zone */
+.players {
+	/* Leader banner */
+	font-weight: 300;
 }
 
 .scoreBlock {
@@ -120,9 +108,11 @@
 
 .playerScoreRow {
 	box-shadow: 4px 4px 0 var(--shadow-color);
+	background-color: #f7f5f2;
 	display: grid;
 	grid-template-columns: 1fr repeat(2, 40px);
 	padding: 0.8rem;
+	margin-bottom: 0.5rem;
 	border-radius: 5px;
 }
 
@@ -130,20 +120,7 @@
 	background-color: #fff;
 }
 
-.warningBlock {
-	padding: 1rem;
-	border: 2px red solid;
-	background-color: #fff;
-	width: 100%;
-	max-width: 100%;
-	margin: 1rem auto;
-	box-shadow: 4px 4px 0 var(--shadow-color);
-	color: red;
-}
-
-.warning {
-	color: red;
-}
+/* End screen */
 .playersRankingEnding {
 	width: 100%;
 }
@@ -151,19 +128,8 @@
 .playersRankingEnding li {
 	display: flex;
 	justify-content: space-between;
-	/* align-items: center; */
 	list-style-type: none;
 	color: var(--font-color-dark);
-}
-
-.players {
-	font-weight: 300;
-}
-
-.winner {
-	font-size: 32px;
-	font-weight: 500;
-	text-align: center;
 }
 
 .restartButtons {
@@ -175,7 +141,7 @@
 
 /* NUMPAD */
 .numberPad {
-	margin-top: 2rem;
+	margin-top: 1rem;
 	display: flex;
 	justify-content: center;
 	width: 100%;
@@ -197,6 +163,7 @@
 	cursor: pointer;
 	box-shadow: 4px 4px 0 var(--shadow-color);
 	border-radius: 5px;
+	font-size: 15px;
 }
 
 .numpadGrid button:hover,
@@ -207,7 +174,7 @@
 
 .undoBtn {
 	grid-column: 4 / 4;
-	background-color: var(--undo-color) !important;
+	background-color: var(--warning-color) !important;
 	color: white;
 	font-weight: bold;
 	grid-column: span 3;
@@ -223,22 +190,52 @@
 	grid-column: span 1;
 }
 
-/* Score history */
-.playerHistory {
-	text-align: left;
-	padding: 0.3rem 1rem;
-	font-size: 0.9rem;
-	color: var(--secondary-color);
-	word-break: break-word;
-	white-space: normal;
+/* Modal */
+.modalOverlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: var(--secondary-color);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 10;
+}
+
+.modalContent {
+	background: var(--warning-color);
+	color: white;
+	padding: 8rem 4rem;
+	border-radius: 5px;
+	position: relative;
+	width: 80%;
+	max-width: 400px;
+	text-align: center;
+	box-shadow: 4px 4px 0 var(--shadow-color);
+}
+
+.closeButton {
+	position: absolute;
+	top: 0px;
+	right: 15px;
+	background: none;
+	border: none;
+	font-size: 3rem;
+	color: var(--font-color-dark);
+	cursor: pointer;
 }
 
 @media (min-width: 768px) {
-	.btn {
-		font-size: 20px;
-	}
-
 	.winner {
 		font-size: 40px;
+	}
+
+	.btn,
+	.registrationForm input,
+	.registrationForm input::placeholder,
+	.numberPad button {
+		font-size: 20px;
 	}
 }

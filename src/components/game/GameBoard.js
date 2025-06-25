@@ -2,7 +2,6 @@ import { useMolkky } from "../contexts/MolkkyContext";
 import { useMemo } from "react";
 import LeaderBanner from "./LeaderBanner";
 import ScoreTable from "./ScoreTable";
-import WarningBox from "./WarningBox";
 import ScorePad from "./ScorePad";
 import GameResult from "./GameResult";
 import { isWinner, getLeader } from "../../utils/scoreLogic";
@@ -26,7 +25,7 @@ const GameBoard = () => {
 	// Fix index if it is out of bounds
 	if (currentPlayerIndex !== validIndex) {
 		setCurrentPlayerIndex(validIndex);
-		return null; // attend le prochain render avec l'index corrigé
+		return null; // wait next render with the correct index
 	}
 
 	if (gameOver) {
@@ -35,8 +34,6 @@ const GameBoard = () => {
 
 	return (
 		<>
-			{/* <h3 className="subtitle-white">Tour de : {currentPlayer.name}</h3> */}
-			<WarningBox />
 			<LeaderBanner leaders={leaders} />
 			<ScoreTable players={players} currentPlayer={currentPlayer} />
 			<ScorePad />

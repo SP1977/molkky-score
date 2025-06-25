@@ -237,6 +237,7 @@ function MolkkyProvider({ children }) {
 				eliminatedPlayers,
 				setEliminatedPlayers,
 				message,
+				setMessage,
 				score,
 				setScore,
 				hasScoredThisTurn,

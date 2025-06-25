@@ -4,6 +4,7 @@ import PlayersList from "./components/game/PlayersList";
 import Button from "./components/ui/Button";
 import GameBoard from "./components/game/GameBoard";
 import GameResult from "./components/game/GameResult";
+import Modal from "./components/ui/Modal";
 
 export default function App() {
 	const {
@@ -16,6 +17,8 @@ export default function App() {
 		handleRestartSamePlayers,
 		handleModifyPlayers,
 		handleResetGame,
+		message,
+		setMessage,
 	} = useMolkky();
 
 	// Rendre le bouton de démarrage
@@ -44,14 +47,6 @@ export default function App() {
 				<h2 className="subtitle">Calculateur de score</h2>
 			</header>
 			<main>
-				{/* Afficher le bouton d'inscription des joueurs lorsque la partie n'a pas encore commencé */}
-				{/* {status === "appStarted" && (
-					<Button onClick={() => dispatch({ type: "subscribe" })}>
-						Inscrivez des joueurs!
-					</Button>
-				)} */}
-
-				{/* Afficher la phase d'ajout de joueurs */}
 				{status === "addPlayers" && (
 					<>
 						<PlayersRegistration onAddPlayer={handleAddPlayer} />
@@ -93,6 +88,7 @@ export default function App() {
 						{renderModifyPlayersButton()}
 					</>
 				)}
+				<Modal message={message} onClose={() => setMessage("")} />
 			</main>
 		</div>
 	);
