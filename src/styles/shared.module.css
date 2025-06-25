@@ -33,6 +33,7 @@
 	background-color: transparent !important;
 	border: none;
 	margin-right: 5px;
+	display: flex;
 }
 
 /* Forms */
