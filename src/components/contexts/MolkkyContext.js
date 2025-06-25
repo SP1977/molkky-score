@@ -4,6 +4,7 @@ import {
 	useReducer,
 	useState,
 	useEffect,
+	useMemo,
 } from "react";
 import {
 	isFault,
@@ -15,14 +16,12 @@ import {
 const MolkkyContext = createContext();
 
 const initialState = {
-	status: "appStarted",
+	status: "addPlayers",
 	winner: null,
 };
 
 function reducer(state, action) {
 	switch (action.type) {
-		case "subscribe":
-			return { ...state, status: "addPlayers" };
 		case "addPlayers":
 			return { ...state, status: "form" };
 		case "startGame":
@@ -83,7 +82,7 @@ function MolkkyProvider({ children }) {
 		setPlayers(resetPlayers);
 		setEliminatedPlayers([]);
 
-		// Recalibrer l'index si nécessaire
+		// Recalculate currentPlayerIndex
 		setCurrentPlayerIndex((i) =>
 			resetPlayers.length === 0 ? 0 : i >= resetPlayers.length ? 0 : i
 		);
@@ -100,9 +99,7 @@ function MolkkyProvider({ children }) {
 		}));
 		setPlayers(resetPlayers);
 		setEliminatedPlayers([]);
-		// setHistory([]);
 		setCurrentPlayerIndex((i) => (i >= resetPlayers.length ? 0 : i));
-
 		clearHistory();
 		dispatch({ type: "modifyPlayers" });
 	}
@@ -117,6 +114,7 @@ function MolkkyProvider({ children }) {
 
 	// Main logic for handling score updates
 	function handleScoreUpdate(playerId, newScore) {
+		// only for robustness, as the numpad limits already the score to numbers between 0 and 12
 		if (isNaN(newScore) || newScore < 0 || newScore > 12) {
 			setMessage("Le score doit être compris entre 0 et 12!");
 			setScore("");
@@ -154,6 +152,7 @@ function MolkkyProvider({ children }) {
 						setEliminatedPlayers((prev) => [...prev, player]);
 						setMessage(`${player.name} a été éliminé.`);
 						setHasScoredThisTurn(false);
+						setHistory([]);
 						return null;
 					}
 				} else {
@@ -189,20 +188,29 @@ function MolkkyProvider({ children }) {
 	}
 
 	function handleUndo() {
-		const last = history.pop();
-		if (last) {
-			setPlayers((prev) =>
-				prev.map((p) => (p.id === last.id ? last : p))
-			);
-			setHistory([...history]);
-			setCurrentPlayerIndex(
-				(i) => (i - 1 + players.length) % players.length
-			);
+		if (history.length === 0) return;
+
+		const newHistory = [...history];
+		const last = newHistory.pop();
+
+		if (!last) return;
+
+		const updatedPlayers = players.map((p) =>
+			p.id === last.id ? last : p
+		);
+		setPlayers(updatedPlayers);
+		// setHistory(newHistory);
+		setHistory([]);
+
+		// Find the index of the last player in the updated players list
+		const restoredPlayerIndex = players.findIndex((p) => p.id === last.id);
+		if (restoredPlayerIndex !== -1) {
+			setCurrentPlayerIndex(restoredPlayerIndex);
 		}
 		setHasScoredThisTurn(false);
 	}
 
-	const topPlayers = getLeader(players);
+	const topPlayers = useMemo(() => getLeader(players), [players]);
 
 	useEffect(() => {
 		getLeader(players);

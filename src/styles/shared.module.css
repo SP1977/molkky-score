@@ -4,24 +4,25 @@
 	border: none;
 	font-size: 15px;
 	background-color: var(--primary-color);
-	box-shadow: 4px 4px 0 #3d4731;
+	box-shadow: 4px 4px 0 var(--shadow-color);
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	max-width: 380px;
+	max-width: 100%;
 }
 
 .btn:hover,
 .btn:active {
-	box-shadow: 2px 2px 0 #3d4731;
+	box-shadow: 2px 2px 0 var(--shadow-color);
 	transform: scale(0.99);
 }
 
 .btnSmall {
 	padding: 0.8rem;
-	background-color: white;
+	background-color: var(--primary-color);
+	color: var(--secondary-color);
 	min-width: min-content;
 	width: min-content;
 	font-size: 1.1rem;
@@ -38,23 +39,22 @@
 .pointsForm {
 	display: flex;
 	width: 100%;
-	padding: 1rem;
-	max-width: 380px;
+	max-width: 100%;
 }
 
 .registrationForm input {
 	width: 100%;
 	margin-right: 15px;
 	padding: 0.5rem;
-	color: var(--secondary-color);
-	box-shadow: 4px 4px 0 #3d4731;
+	color: var(--font-color-dark);
+	box-shadow: 4px 4px 0 var(--shadow-color);
 	border: none;
 }
 
 .playersBlock {
 	display: flex;
 	flex-direction: column;
-	max-width: 380px;
+	max-width: 100%;
 }
 
 .playerList {
@@ -63,32 +63,28 @@
 	flex-direction: row-reverse;
 	align-items: center;
 	justify-content: start;
-	color: white;
-	max-width: 380px;
-	padding: 0 1rem;
+	color: var(--font-color-dark);
+	max-width: 100%;
 }
 
-.scoreTable,
-.ranking {
-	background-color: #fff;
-	border: none;
-	box-shadow: 4px 4px 0 #3d4731;
-	padding: 1rem;
-	margin-bottom: 1rem;
-	color: var(--secondary-color);
+.ribbonWrapper {
 	width: 100%;
-	max-width: 380px;
+	margin-bottom: 2rem;
+	display: inline-block;
+	filter: drop-shadow(4px 4px 0 var(--shadow-color));
 }
 
-.activePlayer {
-	background-color: var(--primary-color) !important;
-	color: white;
-	font-weight: bold;
+.ribbon {
+	position: relative;
+	display: inline-block;
+	font-weight: 900;
+	width: 100%;
+	padding: 1rem 3rem;
+	background-color: var(--tertiary-color);
+	color: var(--secondary-color);
+	text-align: center;
+	clip-path: polygon(0 0, 100% 0, 95% 50%, 100% 100%, 0% 100%, 5% 50%);
 }
-
-/* .pointsForm {
-	max-width: 100px;
-} */
 
 .pointsGroup {
 	display: flex;
@@ -110,38 +106,28 @@
 	width: 100%;
 }
 
-/* Tables */
-/* .tableTitles button {
-	margin-right: 5px;
-	background-color: transparent;
-	border: none;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-} */
-
-/* .tableTitles button img {
-	width: 15px;
-} */
-
 .ranking {
 	font-weight: 900;
 	width: 100%;
 }
 
-table {
-	border-collapse: collapse;
+.scoreBlock {
+	border: none;
+	margin-bottom: 1rem;
+	color: var(--font-color-dark);
 	width: 100%;
 }
 
-.highlightedRow {
-	background-color: #e6e3c3; /* même couleur que la ligne du joueur actif */
+.playerScoreRow {
+	box-shadow: 4px 4px 0 var(--shadow-color);
+	display: grid;
+	grid-template-columns: 1fr repeat(2, 40px);
+	padding: 0.8rem;
+	border-radius: 5px;
 }
 
-.tableTitles > th,
-.tableTitles > td {
-	padding: 0.5rem;
-	text-align: center;
+.highlightedRow {
+	background-color: #fff;
 }
 
 .warningBlock {
@@ -149,19 +135,25 @@ table {
 	border: 2px red solid;
 	background-color: #fff;
 	width: 100%;
-	max-width: 380px;
+	max-width: 100%;
 	margin: 1rem auto;
-	box-shadow: 4px 4px 0 #3d4731;
+	box-shadow: 4px 4px 0 var(--shadow-color);
 	color: red;
 }
 
 .warning {
 	color: red;
 }
+.playersRankingEnding {
+	width: 100%;
+}
 
 .playersRankingEnding li {
+	display: flex;
+	justify-content: space-between;
+	/* align-items: center; */
 	list-style-type: none;
-	color: white;
+	color: var(--font-color-dark);
 }
 
 .players {
@@ -187,7 +179,7 @@ table {
 	display: flex;
 	justify-content: center;
 	width: 100%;
-	max-width: 380px;
+	max-width: 100%;
 }
 
 .numpadGrid {
@@ -195,29 +187,40 @@ table {
 	grid-template-columns: repeat(4, 1fr);
 	width: 100%;
 	gap: 10px;
-	/* max-width: 380px; */
 }
 
 .numpadGrid button {
 	padding: 1rem;
-	font-size: 1.2rem;
-	/* font-family: "Parkinsans", sans-serif; */
 	background-color: var(--primary-color);
 	color: var(--secondary-color);
-	border: 1px solid black;
-	box-shadow: 2px 2px 0 #3d4731;
+	border: none;
+	cursor: pointer;
+	box-shadow: 4px 4px 0 var(--shadow-color);
+	border-radius: 5px;
+}
+
+.numpadGrid button:hover,
+.numpadGrid button:active {
+	box-shadow: 2px 2px 0 var(--shadow-color);
+	transform: scale(0.99);
 }
 
 .undoBtn {
-	grid-column: 4 / 4; /* place à droite sur la dernière ligne */
-	background-color: #f08080 !important;
+	grid-column: 4 / 4;
+	background-color: var(--undo-color) !important;
 	color: white;
 	font-weight: bold;
-	grid-column: span 2;
+	grid-column: span 3;
+}
+
+.undoBtn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	box-shadow: none;
 }
 
 .zeroBtn {
-	grid-column: span 2;
+	grid-column: span 1;
 }
 
 /* Score history */
@@ -233,11 +236,6 @@ table {
 @media (min-width: 768px) {
 	.btn {
 		font-size: 20px;
-	}
-
-	.scoreTable input {
-		font-size: 20px;
-		width: 70px;
 	}
 
 	.winner {

@@ -7,14 +7,16 @@ function LeaderBanner({ leaders }) {
 	const equality = isTie(leaders);
 
 	return (
-		<caption className={styles.ranking}>
-			{equality ? "Égalité entre : " : "En tête : "}
-			<span className={styles.players}>
-				{equality
-					? leaders.map((p) => p.name).join(", ")
-					: leaders[0].name}
-			</span>
-		</caption>
+		<div className={styles.ribbonWrapper}>
+			<caption className={styles.ribbon}>
+				{equality ? "Égalité entre : " : "En tête : "}
+				<span className={styles.players}>
+					{equality
+						? leaders.map((p) => p.name).join(", ")
+						: leaders[0].name}
+				</span>
+			</caption>
+		</div>
 	);
 }
 
