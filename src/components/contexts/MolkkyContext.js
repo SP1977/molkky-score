@@ -33,7 +33,7 @@ function reducer(state, action) {
 		case "modifyPlayers":
 			return { ...state, status: "addPlayers" };
 		case "resetGame":
-			return { status: "appStarted" };
+			return { status: "addPlayers" };
 		default:
 			throw new Error("Action inconnue");
 	}
