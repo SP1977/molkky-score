@@ -9,7 +9,7 @@ const Modal = ({ message, onClose }) => {
 				<button className={styles.closeButton} onClick={onClose}>
 					&times;
 				</button>
-				<p>{message}</p>
+				<p className="notbold">{message}</p>
 			</div>
 		</div>
 	);

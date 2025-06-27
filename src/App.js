@@ -46,6 +46,7 @@ export default function App() {
 				<h1 className="title">Mölkky</h1>
 				<h2 className="subtitle">Calculateur de score</h2>
 			</header>
+
 			<main>
 				{status === "addPlayers" && (
 					<>

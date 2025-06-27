@@ -31,7 +31,8 @@ function GameResult({
 						);
 						return (
 							<li key={player.id}>
-								{index + 2}. {player.name}{" "}
+								{index + 2}{" "}
+								<span className="notbold">{player.name}</span>
 								<span>
 									{isEliminated ? "éliminé" : player.score}
 								</span>

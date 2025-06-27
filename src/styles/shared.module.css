@@ -3,7 +3,7 @@
 	padding: 1rem 1.5rem;
 	color: var(--secondary-color);
 	border: none;
-	font-size: 15px;
+	/* font-size: 16px; */
 	background-color: var(--primary-color);
 	box-shadow: 4px 4px 0 var(--shadow-color);
 	cursor: pointer;
@@ -12,6 +12,7 @@
 	align-items: center;
 	width: 100%;
 	max-width: 100%;
+	border-radius: 5px;
 }
 
 .btn:hover,
@@ -55,12 +56,12 @@
 
 .registrationForm input::placeholder {
 	color: var(--font-color-dark) !important;
-	font-size: 15px;
+	font-size: 16px;
 }
 
 /* Players list Registration page */
 .playersBlock {
-	margin: 1rem 0;
+	margin: 1rem 0 2rem 0;
 	width: 100%;
 }
 
@@ -85,7 +86,6 @@
 .ribbon {
 	position: relative;
 	display: inline-block;
-	font-weight: 900;
 	width: 100%;
 	padding: 1rem 3rem;
 	background-color: var(--tertiary-color);
@@ -95,11 +95,6 @@
 }
 
 /* Score zone */
-.players {
-	/* Leader banner */
-	font-weight: 300;
-}
-
 .scoreBlock {
 	border: none;
 	margin-bottom: 1rem;
@@ -127,17 +122,20 @@
 }
 
 .playersRankingEnding li {
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	align-items: center;
+	gap: 0.5rem;
 	list-style-type: none;
 	color: var(--font-color-dark);
+	margin-bottom: 0.6rem;
 }
 
 .restartButtons {
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
-	margin-top: 1.5rem;
+	margin-top: 2rem;
 }
 
 /* NUMPAD */
@@ -164,7 +162,7 @@
 	cursor: pointer;
 	box-shadow: 4px 4px 0 var(--shadow-color);
 	border-radius: 5px;
-	font-size: 15px;
+	font-size: 16px;
 }
 
 .numpadGrid button:hover,
@@ -177,7 +175,6 @@
 	grid-column: 4 / 4;
 	background-color: var(--warning-color) !important;
 	color: white;
-	font-weight: bold;
 	grid-column: span 3;
 }
 

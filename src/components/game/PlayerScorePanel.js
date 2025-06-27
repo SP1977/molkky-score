@@ -8,7 +8,7 @@ function PlayerScorePanel({ player, isCurrent }) {
 					isCurrent ? styles.highlightedRow : ""
 				}`}
 			>
-				<div className="word-break">{player.name}</div>
+				<div className="word-break notbold">{player.name}</div>
 				<div className="flex-end">{"❌".repeat(player.penalty)}</div>
 				<div className="flex-end">{player.score}</div>
 			</div>

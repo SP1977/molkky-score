@@ -5,7 +5,7 @@ function PlayersList({ players, onRemovePlayer }) {
 	return (
 		<ul className={styles.playersBlock}>
 			{players.map((player) => (
-				<li className={styles.playerList} key={player.id}>
+				<li className={`${styles.playerList} notbold`} key={player.id}>
 					{player.name}
 					<Button icon onClick={() => onRemovePlayer(player.id)}>
 						<img
