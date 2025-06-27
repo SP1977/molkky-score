@@ -20,6 +20,9 @@ const initialState = {
 	winner: null,
 };
 
+// Define a constant for the storage key
+const STORAGE_KEY = "molkkyGame";
+
 function reducer(state, action) {
 	switch (action.type) {
 		case "addPlayers":
@@ -110,6 +113,11 @@ function MolkkyProvider({ children }) {
 		setHistory([]);
 		setCurrentPlayerIndex(0);
 		dispatch({ type: "resetGame" });
+		clearSavedGame();
+	}
+
+	function clearSavedGame() {
+		localStorage.removeItem(STORAGE_KEY);
 	}
 
 	// Main logic for handling score updates
@@ -216,6 +224,36 @@ function MolkkyProvider({ children }) {
 		getLeader(players);
 	}, [players]);
 
+	useEffect(() => {
+		const saved = localStorage.getItem(STORAGE_KEY);
+		if (saved) {
+			try {
+				const parsed = JSON.parse(saved);
+				if (parsed.players) setPlayers(parsed.players);
+				if (parsed.eliminatedPlayers)
+					setEliminatedPlayers(parsed.eliminatedPlayers);
+				if (parsed.currentPlayerIndex !== undefined)
+					setCurrentPlayerIndex(parsed.currentPlayerIndex);
+				if (parsed.state === "letsPlay")
+					dispatch({ type: "startGame" });
+				else if (parsed.state === "form")
+					dispatch({ type: "addPlayers" });
+			} catch (e) {
+				console.error("Erreur lors du chargement de la partie :", e);
+			}
+		}
+	}, []);
+
+	useEffect(() => {
+		const data = {
+			players,
+			eliminatedPlayers,
+			currentPlayerIndex,
+			state: state.status,
+		};
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+	}, [players, eliminatedPlayers, currentPlayerIndex, state]);
+
 	return (
 		<MolkkyContext.Provider
 			value={{
@@ -243,6 +281,7 @@ function MolkkyProvider({ children }) {
 				hasScoredThisTurn,
 				canUndo,
 				setCurrentPlayerIndex,
+				clearSavedGame,
 			}}
 		>
 			{children}
