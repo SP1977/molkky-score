@@ -1,6 +1,6 @@
 import { useMolkky } from "../contexts/MolkkyContext";
 import { useMemo } from "react";
-import LeaderBanner from "./LeaderBanner";
+import RibbonBanner from "./RibbonBanner";
 import ScoreTable from "./ScoreTable";
 import ScorePad from "./ScorePad";
 import GameResult from "./GameResult";
@@ -34,7 +34,7 @@ const GameBoard = () => {
 
 	return (
 		<>
-			<LeaderBanner leaders={leaders} />
+			<RibbonBanner leaders={leaders} />
 			<ScoreTable players={players} currentPlayer={currentPlayer} />
 			<ScorePad />
 		</>
