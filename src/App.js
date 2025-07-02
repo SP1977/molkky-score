@@ -1,4 +1,5 @@
 import { useMolkky } from "./components/contexts/MolkkyContext";
+import Logo from "./components/ui/Logo";
 import PlayersRegistration from "./components/game/PlayerRegistration";
 import PlayersList from "./components/game/PlayersList";
 import Button from "./components/ui/Button";
@@ -43,8 +44,7 @@ export default function App() {
 	return (
 		<div className="app">
 			<header className="header">
-				<h1 className="title">Mölkky</h1>
-				<h2 className="subtitle">Calculateur de score</h2>
+				<Logo />
 			</header>
 
 			<main>

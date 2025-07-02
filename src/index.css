@@ -1,11 +1,11 @@
 :root {
-	--primary-color: #b0c1a7;
-	--secondary-color: #f0ece5;
-	--tertiary-color: #b7a0b9;
+	--primary-color: #87a385;
+	--secondary-color: #ebe6de;
+	--tertiary-color: #a17798;
 	--shadow-color: #e3ded4;
 	--font-color-dark: #aa7e77;
-	--warning-color: #fcb3a0;
-	--bg-pattern: url("./assets/background-pattern.svg");
+	--warning-color: #e98f7f;
+	--bg-pattern: url("./assets/images/background-pattern.svg");
 }
 
 *,
@@ -98,19 +98,11 @@ main {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: 1rem;
+	margin-top: 2rem;
 }
 
-.header .title {
-	margin-bottom: -1.8rem;
-	font-size: 80px;
-}
-
-.header .subtitle {
-	/* margin-bottom: 1.5rem; */
-	align-self: center;
-	margin-right: 55px;
-	font-size: 22px;
+.header .logo {
+	width: 100%;
 }
 
 @media (min-width: 768px) {
@@ -122,13 +114,8 @@ main {
 		width: 375px;
 	}
 
-	.header .title {
-		margin-bottom: -2rem;
-		font-size: 100px;
-	}
-
-	.header .subtitle {
-		font-size: 25px;
-		margin-right: 100px;
+	.header .logo {
+		width: 100%;
+		min-width: 375px;
 	}
 }
